@@ -1,0 +1,16 @@
+﻿  World.cpp
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(47): warning C4018: “<”: 有符号/无符号不匹配
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(48): warning C4018: “<”: 有符号/无符号不匹配
+  Ray.cpp
+  Point.cpp
+  Plane.cpp
+  PhongModel.cpp
+  Object.cpp
+  main.cpp
+  lodepng.cpp
+  drawer.cpp
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\drawer.cpp(60): warning C4018: “>=”: 有符号/无符号不匹配
+  Camera.cpp
+  正在生成代码...
+  raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Debug\raytrace.exe
+  raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Debug\raytrace.pdb (Full PDB)
