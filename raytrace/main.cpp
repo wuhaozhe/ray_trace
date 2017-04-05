@@ -1,4 +1,5 @@
 #include "Plane.h"
+#include "Sphere.h"
 #include "Point.h"
 #include "World.h"
 #include <iostream>
@@ -12,6 +13,10 @@ int main()
 	Plane *b = dynamic_cast<Plane*>(a);
 	World e;
 	e.add_object(a);
+	vector3<double> center(0, 0, 5);
+	double raidus = 5;
+	Object *sphere = new Sphere(center, raidus);
+	e.add_object(sphere);
 	e.ray_cast();
 	drawer *p = drawer::get_instance();
 	p->output_image();
@@ -33,6 +38,21 @@ int main()
 	else
 	{
 		cout << "not intersect";
+	}*/
+	/*vector3<double> temp1(0, 0, 0);
+	double raidus = 1;
+	vector3<double> temp2(0, 0, 0);
+	vector3<double> direction(0, 0, 1);
+	Ray temp4(temp2, direction);
+	vector3<double> temp3;
+	Sphere* sphere = new Sphere(temp1, raidus);
+	if (sphere->intersect(temp4, temp3))
+	{
+		cout << temp3.x << " " << temp3.y << " " << temp3.z << endl;
+	}
+	else
+	{
+		cout << "failed" << endl;
 	}*/
 	return 0;
 }

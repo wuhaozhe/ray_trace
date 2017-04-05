@@ -5,6 +5,7 @@ class Sphere:public Object
 {
 private:
 	void init();
+	double square_radius;                  //半径的平方
 public:
 	vector3<double> sphere_center;         //球心
 	double radius;                        //半径

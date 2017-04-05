@@ -16,6 +16,7 @@ public:
 	Object_type object_type;
 	Object();
 	Material_feature color_feature;
+	double opacity = 0.5;                      //透明度，【0-1】，为0时认为是不透明的，为1时认为是透明的，透明度使得光穿过该物体时有光强的损耗
 	~Object();
 };
 

@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-int PhongModel::reflect_parameter = 3;
+int PhongModel::reflect_parameter = 10;
 PhongModel::PhongModel()
 {
 }
@@ -20,11 +20,15 @@ Color PhongModel::reflect_color(Light light, vector3<double> normal_vector, vect
 	vector3<double> reverse_light = light.direction * -1;
 	vector3<double> reverse_view = view_direction * -1;
 	double L_N_dot = reverse_light * normal_vector;
+	if (L_N_dot < 0)
+		L_N_dot = 0;
 	//cout << "veiw" << view_direction.x << " " << view_direction.y << view_direction.z << endl;
 	//cout << reverse_view.x << " " << reverse_view.y << " " << reverse_view.z << endl;
-	//cout << reverse_light.x << " " << reverse_light.y << " " << reverse_light.z << endl;
+	//cout<<"reverse light " << reverse_light.x << " " << reverse_light.y << " " << reverse_light.z << endl;
 	vector3<double> angle_bisector = (reverse_light + reverse_view).normallize();             //求角平分线
 	double R_V_dot = angle_bisector * normal_vector;
+	if (R_V_dot < 0)
+		R_V_dot = 0;
 	r += light.intensity * light.color.r * feature.Kdr * L_N_dot;
 	g += light.intensity * light.color.g * feature.Kdg * L_N_dot;
 	b += light.intensity * light.color.b * feature.Kdb * L_N_dot;
@@ -35,5 +39,6 @@ Color PhongModel::reflect_color(Light light, vector3<double> normal_vector, vect
 	g += light.intensity * light.color.g * feature.Kag;
 	b += light.intensity * light.color.b * feature.Kab;
 	//cout << r << " " << g << " " << b << endl;
+	//cout << R_V_dot << " " << L_N_dot << endl;
 	return Color((unsigned char)r, (unsigned char)g, (unsigned char)b, 255);
 }

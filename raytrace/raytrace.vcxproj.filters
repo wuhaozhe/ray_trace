@@ -58,6 +58,9 @@
       <Filter>源文件\LightModel</Filter>
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
+      <Filter>源文件\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,6 +96,9 @@
       <Filter>头文件\LightModel</Filter>
     </ClInclude>
     <ClInclude Include="Sphere.h">
+      <Filter>头文件\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

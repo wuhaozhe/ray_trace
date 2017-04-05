@@ -16,7 +16,7 @@ public:
 	unsigned int size;              //视图的大小
 	double view_angle;              //视角
 	double distance;                //眼睛距离投影的距离
-	Camera(vector3<double> eye_place, vector3<double> forward_direction, vector3<double> upward_direction, unsigned int picture_size = 500, double input_angle = 95)
+	Camera(vector3<double> eye_place, vector3<double> forward_direction, vector3<double> upward_direction, unsigned int picture_size = 700, double input_angle = 95)
 	{
 		position = eye_place;
 		upward = upward_direction.normallize();
