@@ -9,6 +9,8 @@ void Sphere::init()
 Sphere::Sphere()
 {
 	init();
+	refractive = true;
+	refract_coefficient = 0.8;
 }
 Sphere::Sphere(vector3<double> input_center, double input_radius): sphere_center(input_center), radius(input_radius)
 {

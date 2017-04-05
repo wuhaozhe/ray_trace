@@ -61,7 +61,7 @@
       <Filter>源文件\Object</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +99,7 @@
       <Filter>头文件\Object</Filter>
     </ClInclude>
     <ClInclude Include="Triangle.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

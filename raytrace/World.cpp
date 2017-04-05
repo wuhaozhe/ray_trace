@@ -42,7 +42,7 @@ Color World::ray_cast(int i, int j)
 			}
 		}
 	}
-	if (index >= 0)
+	if (index >= 0)                           //ÃÌº”“ı”∞
 	{
 		vector3<double> intersect_to_light(light.start_point - closest_point);
 		intersect_to_light = intersect_to_light.normallize();

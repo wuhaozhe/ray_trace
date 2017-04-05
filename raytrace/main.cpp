@@ -2,6 +2,7 @@
 #include "Sphere.h"
 #include "Point.h"
 #include "World.h"
+#include "Triangle.h"
 #include <iostream>
 using namespace std;
 
@@ -17,6 +18,11 @@ int main()
 	double raidus = 5;
 	Object *sphere = new Sphere(center, raidus);
 	e.add_object(sphere);
+	vector3<double> v1(1, -10, 0);
+	vector3<double> v2(5, -4, 0);
+	vector3<double> v3(3, -15, 10);
+	Object *triangle = new Triangle(v1, v2, v3);
+	e.add_object(triangle);
 	e.ray_cast();
 	drawer *p = drawer::get_instance();
 	p->output_image();
