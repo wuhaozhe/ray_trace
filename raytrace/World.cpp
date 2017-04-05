@@ -19,56 +19,107 @@ void World::add_object(Object* obj)
 	objects.push_back(obj);
 }
 
-Color World::ray_cast(int i, int j)
+bool World::intersect_point(Ray current_ray, int &object_index, vector3<double> &point)       //求交点
 {
-	Color return_color;
 	double distance = 10000000000;
-	Ray current_ray = camera.generate_ray(i, j);             //产生i, j像素上的光线
+	object_index = -1;
 	//枚举world中每一个物体求交点，选取一个最近的交点
-	unsigned int index = -1;                     //最近的一个点与物体
-	vector3<double> closest_point;
 	for (unsigned int i = 0; i < objects.size(); i++)
 	{
-		vector3<double> intersect_point;
-		if (objects[i]->intersect(current_ray, intersect_point))
+		vector3<double> intersect_Point;
+		if (objects[i]->intersect(current_ray, intersect_Point))
 		{
-			double length = (intersect_point - camera.position).length;
+			double length = (intersect_Point - camera.position).length;
 			if (length < distance)
 			{
 				distance = length;
-				return_color = objects[i]->get_color(intersect_point, current_ray.direction, light);
-				index = i;
-				closest_point = intersect_point;
+				object_index = i;
+				point = intersect_Point;
 			}
 		}
 	}
-	if (index >= 0)                           //添加阴影
+	if (object_index < 0)
 	{
-		vector3<double> intersect_to_light(light.start_point - closest_point);
-		intersect_to_light = intersect_to_light.normallize();
-		Ray to_light_ray(closest_point, intersect_to_light);           //交点到光源的射线		
-		for (unsigned int i = 0; i < objects.size(); i++)
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+Color World::determine_color_normalvec(int object_index, vector3<double> point, vector3<double> in_direction, vector3<double> &normal_vector)
+{
+	Color return_color = objects[object_index]->get_color_normalvec(point, in_direction, light, normal_vector);
+	vector3<double> intersect_to_light(light.start_point - point);
+	intersect_to_light = intersect_to_light.normallize();
+	Ray to_light_ray(point, intersect_to_light);           //交点到光源的射线		
+	for (unsigned int i = 0; i < objects.size(); i++)
+	{
+		if (i == object_index)
+			continue;
+		vector3<double> intersect_point;
+		if (objects[i]->intersect(to_light_ray, intersect_point))
 		{
-			if (i == index)
-				continue;
-			vector3<double> intersect_point;
-			if (objects[i]->intersect(to_light_ray, intersect_point))
-			{
-				return_color.r *= objects[i]->opacity;  
-				return_color.g *= objects[i]->opacity;
-				return_color.b *= objects[i]->opacity;
-			}
+			return_color.r *= objects[i]->opacity;
+			return_color.g *= objects[i]->opacity;
+			return_color.b *= objects[i]->opacity;
 		}
 	}
 	return return_color;
 }
 
-void World::ray_cast()
+Color World::intersect_color(int n, Ray current_ray)
+{
+	if (n >= recursive_depth)
+	{
+		return Color();
+	}
+	vector3<double> _intersect_point;
+	int object_index;
+	if (intersect_point(current_ray, object_index, _intersect_point))
+	{
+		Color return_color;
+		vector3<double> normal_vector;
+		if (objects[object_index]->reflective)
+		{
+			return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector) * 
+							(1 - objects[object_index]->reflect_coefficient);
+			vector3<double> reflect_direction = reflect(current_ray.direction, normal_vector);
+			Ray reflect_ray(_intersect_point, reflect_direction);
+			return_color = return_color + intersect_color(n + 1, reflect_ray);
+		}
+		/*else if (objects[object_index]->refractive)
+		{
+			return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector) *
+				(1 - objects[object_index]->refract_coefficient);
+			vector3<double> refract_direction;
+			if(refract())
+		}*/
+		else
+		{
+			return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector);
+		}
+		return return_color;
+	}
+	else
+	{
+		return Color();
+	}
+}
+
+Color World::ray_trace(int i, int j)
+{
+	Ray current_ray = camera.generate_ray(i, j);             //产生i, j像素上的光线
+	return intersect_color(0, current_ray);
+}
+
+void World::ray_trace()
 {
 	cout << camera.size<<endl;
 	for(int i = 0; i < camera.size; i++)
 		for (int j = 0; j < camera.size; j++)
 		{
-			drawer_instance->set_pixel(i, j, ray_cast(i - (camera.size / 2), j - (camera.size / 2)));
+			drawer_instance->set_pixel(i, j, ray_trace(i - (camera.size / 2), j - (camera.size / 2)));
 		}
 }

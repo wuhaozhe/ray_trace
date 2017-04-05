@@ -23,7 +23,7 @@ int main()
 	vector3<double> v3(3, -15, 10);
 	Object *triangle = new Triangle(v1, v2, v3);
 	e.add_object(triangle);
-	e.ray_cast();
+	e.ray_trace();
 	drawer *p = drawer::get_instance();
 	p->output_image();
 	/*vector3<double> temp1(1.5, 1.5, 1.5);

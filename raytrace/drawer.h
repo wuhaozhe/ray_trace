@@ -18,6 +18,24 @@ struct Color         //PixelµÄ×é³Ér, g, b, a
 	{
 		r = 0, g = 0, b = 0, a = 0;
 	}
+	Color operator*(const double &a)
+	{
+		Color temp;
+		temp.r = (unsigned char)(a * (double)r);
+		temp.g = (unsigned char)(a * (double)g);
+		temp.b = (unsigned char)(a * (double)b);
+		temp.a = 255;
+		return temp;
+	}
+	Color operator+(const Color &a)
+	{
+		Color temp;
+		temp.r = a.r + r;
+		temp.g = a.g + g;
+		temp.b = a.b + b;
+		temp.a = 255;
+		return temp;
+	}
 };
 struct Point
 {

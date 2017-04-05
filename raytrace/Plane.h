@@ -13,5 +13,5 @@ public:
 	vector3<double> passed_point;              //平面经过的点
 	Plane(vector3<double> input_point, vector3<double> input_normal_vector);
 	bool intersect(Ray input_ray, vector3<double> &intersect_point);
-	Color get_color(vector3<double> target_pos, vector3<double> view_direction, Light light);
+	Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Light light, vector3<double> &in);
 };

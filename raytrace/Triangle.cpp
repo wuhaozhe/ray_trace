@@ -62,7 +62,7 @@ bool Triangle::intersect(Ray input_ray, vector3<double> &intersect_point)
 {
 	vector3<double> S = vertex[0] - input_ray.start_point;
 	vector3<double> solution = solve_equation(input_ray.direction, E1, E2, S);
-	if (solution.x > 0 && solution.y >= 0 && solution.z >= 0 && (solution.y + solution.z) <= 1)
+	if (solution.x > limit_zero && solution.y >= 0 && solution.z >= 0 && (solution.y + solution.z) <= 1)
 	{
 		intersect_point = input_ray.direction * solution.x + input_ray.start_point;
 		return true;
@@ -73,12 +73,13 @@ bool Triangle::intersect(Ray input_ray, vector3<double> &intersect_point)
 	}
 }
 
-Color Triangle::get_color(vector3<double> target_pos, vector3<double> view_direction, Light light)
+Color Triangle::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Light light, vector3<double> &in)
 {
 	light.direction = (target_pos - light.start_point).normallize();
 	if (normal_vector * light.direction > 0)
 	{
 		normal_vector = normal_vector * -1;
 	}
+	in = normal_vector;
 	return PhongModel::reflect_color(light, normal_vector, view_direction, color_feature);
 }
