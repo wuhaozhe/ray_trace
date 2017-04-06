@@ -1,20 +1,3 @@
-﻿  Triangle.cpp
-  正在生成代码...
-  正在编译...
-  main.cpp
-  World.cpp
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(64): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(65): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(66): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(120): warning C4018: “<”: 有符号/无符号不匹配
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(121): warning C4018: “<”: 有符号/无符号不匹配
-  Sphere.cpp
-  Ray.cpp
-  Point.cpp
-  Plane.cpp
-  PhongModel.cpp
-  Object.cpp
-  Camera.cpp
-  正在生成代码...
+﻿  main.cpp
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Debug\raytrace.exe
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Debug\raytrace.pdb (Full PDB)

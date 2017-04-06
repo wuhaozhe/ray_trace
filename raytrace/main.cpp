@@ -4,6 +4,7 @@
 #include "World.h"
 #include "Triangle.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 int main()
@@ -14,10 +15,27 @@ int main()
 	Plane *b = dynamic_cast<Plane*>(a);
 	World e;
 	e.add_object(a);
-	vector3<double> center(0, 0, 5);
+	vector3<double> center(-5, 0, 4.01);
 	double raidus = 5;
+	vector3<double> center2(2, 10, 5);
+	double radius2 = 5;
+	Object *sphere2 = new Sphere(center2, radius2);
+	//sphere2->refractive = false;
+	vector3<double> center3(-10, 0, 4.01);
+	double radius3 = 1;
+	Object *sphere3 = new Sphere(center3, radius3);
+	sphere3->n = 1.5;
+	Object *sphere4 = new Sphere(vector3<double>(15, 10, 5), 5);
+	(sphere4->color_feature).Kar = 0.05;
+	(sphere4->color_feature).Kdr = 0.3;
+	(sphere4->color_feature).Ksr = 0.6;
+	sphere4->refractive = false;
 	Object *sphere = new Sphere(center, raidus);
+	sphere->n = 2;
 	e.add_object(sphere);
+	e.add_object(sphere2);
+	e.add_object(sphere3);
+	e.add_object(sphere4);
 	vector3<double> v1(1, -10, 0);
 	vector3<double> v2(5, -4, 0);
 	vector3<double> v3(3, -15, 10);
@@ -59,6 +77,18 @@ int main()
 	else
 	{
 		cout << "failed" << endl;
+	}*/
+	/*vector3<double> temp1(sqrt(3), 1, 0);
+	temp1 = temp1.normallize();
+	vector3<double> temp2(0, -1, 0);
+	vector3<double> temp3;
+	if (refract(temp1, temp2, 1, sqrt(3), temp3))
+	{
+		cout << temp3.x << " " << temp3.y << " " << temp3.z << endl;
+	}
+	else
+	{
+		cout << "reflect!" << endl;
 	}*/
 	return 0;
 }

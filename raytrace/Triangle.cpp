@@ -37,6 +37,7 @@ Triangle::Triangle(vector3<double> vertex1, vector3<double> vertex2, vector3<dou
 	color_feature.Kar = 0.05;
 	reflective = true;
 	reflect_coefficient = 0.7;
+	n = 0;
 }
 
 vector3<double> Triangle::solve_equation(vector3<double> a, vector3<double> b, vector3<double> c, vector3<double> d)

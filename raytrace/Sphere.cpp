@@ -15,10 +15,14 @@ Sphere::Sphere()
 Sphere::Sphere(vector3<double> input_center, double input_radius): sphere_center(input_center), radius(input_radius)
 {
 	init();
-	color_feature.Kdr = 0.3;
+	/*color_feature.Kdr = 0.3;
 	color_feature.Ksr = 0.65;
-	color_feature.Kar = 0.05;
+	color_feature.Kar = 0.05;*/
 	square_radius = radius * radius;
+	refractive = true;
+	refract_coefficient = 0.99;
+	reflect_coefficient = 0.99;
+	n = 1.5;
 }
 
 Sphere::~Sphere()
@@ -29,7 +33,7 @@ bool Sphere::intersect(Ray input_ray, vector3<double> &intersect_point)         
 {
 	vector3<double> l = sphere_center - input_ray.start_point;
 	double direction_radius_dot = l * input_ray.direction;
-	if (l.length > radius)           //光源位于球体外部
+	if (l.length > radius && fabs(l.length - radius) >= limit_zero)           //光源位于球体外部
 	{
 		if (direction_radius_dot > 0)
 		{
