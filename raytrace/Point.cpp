@@ -28,3 +28,9 @@ bool refract(vector3<double> in, vector3<double> normal_vector, double ni, doubl
 	out = (in * (-1 * (ni_cp_nt)) + normal_vector * (ni_cp_nt * cos_i - cos_t)).normallize();
 	return true;
 }
+
+std::ostream& operator<<(std::ostream& out, const vector3<double>& s)
+{
+	out << "[" << s.x << " ," << s.y << " ," << s.z << "]";
+	return out;
+}

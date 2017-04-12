@@ -12,7 +12,7 @@ PhongModel::~PhongModel()
 {
 }
 
-Color PhongModel::reflect_color(Light light, vector3<double> normal_vector, vector3<double> view_direction, Material_feature feature)
+Color PhongModel::reflect_color(Single_Light light, vector3<double> normal_vector, vector3<double> view_direction, Material_feature feature)
 {
 	double r = 0;
 	double g = 0;

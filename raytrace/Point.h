@@ -2,6 +2,7 @@
 #define POINT_H
 #include <cmath>
 #include <assert.h>
+#include <iostream>
 #define limit_zero 0.0000000000001                   //double < limit_zeor , it's 0
 template<typename T>
 class vector2
@@ -136,6 +137,7 @@ public:
 	}
 };
 
+std::ostream& operator<<(std::ostream& out, const vector3<double>& s);
 vector3<double> reflect(vector3<double> in, vector3<double> normal_vector);         //返回以normal_vector为法向量,in为射入的单位化向量
 
 

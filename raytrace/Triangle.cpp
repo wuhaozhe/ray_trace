@@ -74,7 +74,7 @@ bool Triangle::intersect(Ray input_ray, vector3<double> &intersect_point)
 	}
 }
 
-Color Triangle::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Light light, vector3<double> &in)
+Color Triangle::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in)
 {
 	light.direction = (target_pos - light.start_point).normallize();
 	if (normal_vector * light.direction > 0)
