@@ -13,7 +13,7 @@ drawer::~drawer()
 void drawer::set_pixel(unsigned x, unsigned y, Color color)
 {
 	assert(x < width && y < height);
-	y = width - 1 - y;               //将坐标轴上下颠倒
+	y = height - 1 - y;               //将坐标轴上下颠倒
 	image[4 * width * y + 4 * x + 0] = color.r;
 	image[4 * width * y + 4 * x + 1] = color.g;
 	image[4 * width * y + 4 * x + 2] = color.b;

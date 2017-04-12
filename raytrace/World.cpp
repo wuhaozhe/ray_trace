@@ -6,7 +6,7 @@ World::World(): light(vector3<double>(-25, 1, 50), vector3<double>(0, 0, -1), 0.
 {
 	camera = Camera(vector3<double>(-20, 0, 5), vector3<double>(1, 0, 0), vector3<double>(0, 0, 1));
 	drawer_instance = drawer::get_instance();
-	drawer_instance->set_size(camera.size, camera.size);
+	drawer_instance->set_size(camera.size_x, camera.size_y);
 }
 
 
@@ -129,7 +129,6 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 			{
 				refract_stack.push(object_index);
 				current_n = objects[object_index]->n;         //出射光线折射率
-				//cout << last_n << " " << current_n << endl;
 				vector3<double> refract_direction;
 				if (refract(current_ray.direction, normal_vector, last_n, current_n, refract_direction))                    //能够折射
 				{
@@ -169,10 +168,10 @@ Color World::ray_trace(int i, int j)
 
 void World::ray_trace()
 {
-	cout << camera.size<<endl;
-	for(int i = 0; i < camera.size; i++)
-		for (int j = 0; j < camera.size; j++)
+	cout << camera.size_x << " " << camera.size_y << endl;
+	for(int i = 0; i < camera.size_x; i++)
+		for (int j = 0; j < camera.size_y; j++)
 		{
-			drawer_instance->set_pixel(i, j, ray_trace(i - (camera.size / 2), j - (camera.size / 2)));
+			drawer_instance->set_pixel(i, j, ray_trace(i - (camera.size_x / 2), j - (camera.size_y / 2)));
 		}
 }
