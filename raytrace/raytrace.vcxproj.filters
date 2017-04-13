@@ -25,6 +25,12 @@
     <Filter Include="源文件\LightModel">
       <UniqueIdentifier>{6b01472b-03e3-4385-9f6f-8e0404aa027a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Beizer">
+      <UniqueIdentifier>{577f70ce-bdcd-4443-b32e-942fb714d353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Beizer">
+      <UniqueIdentifier>{6d01f315-7c32-4bac-bdd3-5b2ae569ee50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,15 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>源文件\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Beizer_Line.cpp">
+      <Filter>源文件\Beizer</Filter>
+    </ClCompile>
+    <ClCompile Include="Beizer_rotate.cpp">
+      <Filter>源文件\Beizer</Filter>
+    </ClCompile>
+    <ClCompile Include="Beizer_Surface.cpp">
+      <Filter>源文件\Beizer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drawer.h">
@@ -100,6 +115,18 @@
     </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>头文件\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Beizer_Line.h">
+      <Filter>头文件\Beizer</Filter>
+    </ClInclude>
+    <ClInclude Include="Beizer_rotate.h">
+      <Filter>头文件\Beizer</Filter>
+    </ClInclude>
+    <ClInclude Include="rotate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Beizer_Surface.h">
+      <Filter>头文件\Beizer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

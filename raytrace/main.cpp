@@ -3,13 +3,14 @@
 #include "Point.h"
 #include "World.h"
 #include "Triangle.h"
+#include "Beizer_rotate.h"
 #include <iostream>
 #include <cmath>
 using namespace std;
 
 int main()
 {
-	vector3<double> temp1(1, 1, -1);
+	/*vector3<double> temp1(1, 1, -1);
 	vector3<double> temp2(0, 0, 1);
 	Object *a = new Plane(temp1, temp2);
 	Plane *b = dynamic_cast<Plane*>(a);
@@ -43,7 +44,7 @@ int main()
 	e.add_object(triangle);
 	e.ray_trace();
 	drawer *p = drawer::get_instance();
-	p->output_image();
+	p->output_image();*/
 	/*vector3<double> temp1(1.5, 1.5, 1.5);
 	vector3<double> temp2(1.5, 1.5, 1.5);
 	vector3<double> temp3 = temp1 + temp2;*/
@@ -90,5 +91,11 @@ int main()
 	{
 		cout << "reflect!" << endl;
 	}*/
+	Beizer_rotate a;
+	a.add_control_point(vector3<double>(0, 0, 0));
+	a.add_control_point(vector3<double>(0, 1.5, 1));
+	a.add_control_point(vector3<double>(0, 2, 2));
+	a.add_control_point(vector3<double>(0, 0, 3));
+	a.output_obj();
 	return 0;
 }

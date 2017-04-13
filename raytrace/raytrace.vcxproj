@@ -142,6 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Beizer_Line.cpp" />
+    <ClCompile Include="Beizer_rotate.cpp" />
+    <ClCompile Include="Beizer_Surface.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="drawer.cpp" />
     <ClCompile Include="lodepng.cpp" />
@@ -156,6 +159,9 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Beizer_Line.h" />
+    <ClInclude Include="Beizer_rotate.h" />
+    <ClInclude Include="Beizer_Surface.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="drawer.h" />
     <ClInclude Include="lodepng.h" />
@@ -165,6 +171,7 @@
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="rotate.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="World.h" />

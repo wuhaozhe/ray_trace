@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <iostream>
 #define limit_zero 0.0000000000001                   //double < limit_zeor , it's 0
+
 template<typename T>
 class vector2
 {
@@ -133,11 +134,27 @@ public:
 		T cross_x = y * a.z - z * a.y;
 		T cross_y = z * a.x - x * a.z;
 		T cross_z = x * a.y - y * a.x;
-		return vector3(cross_x, cross_y, cross_z);
+		return vector3<T>(cross_x, cross_y, cross_z);
 	}
 };
 
+template<typename T>
+class Matrix3               //矩阵
+{
+public:
+	T Array[3][3];
+	vector3<T> operator*(const vector3<T> &a)
+	{
+		T temp_x = Array[0][0] * a.x + Array[0][1] * a.y + Array[0][2] * a.z;
+		T temp_y = Array[1][0] * a.x + Array[1][1] * a.y + Array[1][2] * a.z;
+		T temp_z = Array[2][0] * a.x + Array[2][1] * a.y + Array[2][2] * a.z;
+		return vector3<T>(temp_x, temp_y, temp_z);
+	}
+};
+
+
 std::ostream& operator<<(std::ostream& out, const vector3<double>& s);
+std::ostream& operator<<(std::ostream& out, const vector3<int>& s);
 vector3<double> reflect(vector3<double> in, vector3<double> normal_vector);         //返回以normal_vector为法向量,in为射入的单位化向量
 
 

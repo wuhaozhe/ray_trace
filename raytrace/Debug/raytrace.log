@@ -1,21 +1,21 @@
-﻿  Camera.cpp
-  正在生成代码...
-  正在编译...
-  World.cpp
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(55): warning C4018: “<”: 有符号/无符号不匹配
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(68): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(69): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(70): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(178): warning C4018: “<”: 有符号/无符号不匹配
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(179): warning C4018: “<”: 有符号/无符号不匹配
-  正在生成代码...
-  正在跳过...(未检测到相关更改)
-  main.cpp
-  Triangle.cpp
-  Sphere.cpp
-  Ray.cpp
-  Plane.cpp
-  PhongModel.cpp
-  Object.cpp
+﻿  Beizer_rotate.cpp
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\beizer_rotate.cpp(26): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\beizer_rotate.cpp(34): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\beizer_rotate.cpp(89): warning C4018: “<”: 有符号/无符号不匹配
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\beizer_rotate.cpp(93): warning C4018: “<”: 有符号/无符号不匹配
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\beizer_rotate.cpp(85): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 参见“fopen”的声明
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\point.h(87): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  e:\大二下\图形学\第一次大作业\raytrace\raytrace\point.h(82): note: 编译类 模板 成员函数“vector3<int>::vector3(T,T,T)”时
+          with
+          [
+              T=int
+          ]
+  e:\大二下\图形学\第一次大作业\raytrace\raytrace\beizer_rotate.cpp(43): note: 参见对正在编译的函数 模板 实例化“vector3<int>::vector3(T,T,T)”的引用
+          with
+          [
+              T=int
+          ]
+  e:\大二下\图形学\第一次大作业\raytrace\raytrace\beizer_rotate.cpp(43): note: 参见对正在编译的类 模板 实例化“vector3<int>”的引用
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Debug\raytrace.exe
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Debug\raytrace.pdb (Full PDB)

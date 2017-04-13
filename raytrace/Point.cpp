@@ -34,3 +34,9 @@ std::ostream& operator<<(std::ostream& out, const vector3<double>& s)
 	out << "[" << s.x << " ," << s.y << " ," << s.z << "]";
 	return out;
 }
+
+std::ostream& operator<<(std::ostream& out, const vector3<int>& s)
+{
+	out << "[" << s.x << " ," << s.y << " ," << s.z << "]";
+	return out;
+}
