@@ -4,6 +4,7 @@
 #include "World.h"
 #include "Triangle.h"
 #include "Beizer_rotate.h"
+#include "Beizer_Surface.h"
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -91,11 +92,21 @@ int main()
 	{
 		cout << "reflect!" << endl;
 	}*/
-	Beizer_rotate a;
-	a.add_control_point(vector3<double>(0, 0, 0));
-	a.add_control_point(vector3<double>(0, 1.5, 1));
-	a.add_control_point(vector3<double>(0, 2, 2));
-	a.add_control_point(vector3<double>(0, 0, 3));
+	Beizer_Surface a(3, 3);
+	a.set_control_point(0, 0, vector3<double>(0, 0, 0));
+	a.set_control_point(0, 1, vector3<double>(0, 1.5, 1));
+	a.set_control_point(0, 2, vector3<double>(0, 2, 0.5));
+	a.set_control_point(1, 0, vector3<double>(1, 0, 0.3));
+	a.set_control_point(1, 1, vector3<double>(1, 1, 10));
+	a.set_control_point(1, 2, vector3<double>(1, 2, 0.9));
+	a.set_control_point(2, 0, vector3<double>(2, 0, -0.2));
+	a.set_control_point(2, 1, vector3<double>(2, 1.3, 0.05));
+	a.set_control_point(2, 2, vector3<double>(1, 2.2, 0.8));
 	a.output_obj();
+	/*Beizer_rotate b;
+	b.add_control_point(vector3<double>(0, 1, 0));
+	b.add_control_point(vector3<double>(0, 2, 1.6));
+	b.add_control_point(vector3<double>(0, 3, 1.3));
+	b.output_obj();*/
 	return 0;
 }

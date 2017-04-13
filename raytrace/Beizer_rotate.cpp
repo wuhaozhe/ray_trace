@@ -43,12 +43,12 @@ void Beizer_rotate::generate_meshes(vector<vector3<double> > &points, vector<vec
 			}
 			else if (i == num - 1)
 			{
-				meshes.push_back(vector3<int>(counter - num + 1, counter, counter + 1));
+				meshes.push_back(vector3<int>(counter - num + 1, counter + 1, counter));
 			}
 			else
 			{
 				meshes.push_back(vector3<int>(counter - num + 1, counter - num + 2, counter + 1));
-				meshes.push_back(vector3<int>(counter - num + 1, counter, counter + 1));
+				meshes.push_back(vector3<int>(counter - num + 1, counter + 1, counter));
 			}
 			counter++;            //counter计算生成了多少个点
 		}
@@ -62,12 +62,12 @@ void Beizer_rotate::generate_meshes(vector<vector3<double> > &points, vector<vec
 		}
 		else if (i == num - 1)
 		{
-			meshes.push_back(vector3<int>(counter + 1, i, i + 1));
+			meshes.push_back(vector3<int>(counter + 1, i + 1, i));
 		}
 		else
 		{
 			meshes.push_back(vector3<int>(counter + 1, counter + 2, i + 1));
-			meshes.push_back(vector3<int>(counter + 1, i, i + 1));
+			meshes.push_back(vector3<int>(counter + 1, i + 1, i));
 		}
 		counter++;
 	}
