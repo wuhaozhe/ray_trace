@@ -145,6 +145,8 @@
     <ClCompile Include="Beizer_Line.cpp" />
     <ClCompile Include="Beizer_rotate.cpp" />
     <ClCompile Include="Beizer_Surface.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
+    <ClCompile Include="BSPTree.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="drawer.cpp" />
     <ClCompile Include="lodepng.cpp" />
@@ -162,6 +164,8 @@
     <ClInclude Include="Beizer_Line.h" />
     <ClInclude Include="Beizer_rotate.h" />
     <ClInclude Include="Beizer_Surface.h" />
+    <ClInclude Include="BoundingBox.h" />
+    <ClInclude Include="BSPTree.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="drawer.h" />
     <ClInclude Include="lodepng.h" />

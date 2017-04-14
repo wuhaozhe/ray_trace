@@ -7,7 +7,7 @@ class Object
 protected:
 	enum Object_type
 	{
-		Plane, Triangle, Polygon, Sphere, Box
+		Plane, Triangle, Polygon, Sphere, BoundingBox
 	};
 	virtual void init() = 0;
 public:

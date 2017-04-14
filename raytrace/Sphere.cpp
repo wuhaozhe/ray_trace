@@ -15,9 +15,6 @@ Sphere::Sphere()
 Sphere::Sphere(vector3<double> input_center, double input_radius): sphere_center(input_center), radius(input_radius)
 {
 	init();
-	/*color_feature.Kdr = 0.3;
-	color_feature.Ksr = 0.65;
-	color_feature.Kar = 0.05;*/
 	square_radius = radius * radius;
 	refractive = true;
 	refract_coefficient = 0.99;

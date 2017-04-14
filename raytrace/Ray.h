@@ -67,7 +67,6 @@ public:
 		{
 			for (int j = 0; j < row_num; j++)
 			{
-				cout << start_point << endl;
 				Single_Light single_light(start_point, direction, each_intensity, Color(255, 255, 255, 255));
 				each_light.push_back(single_light);
 				start_point = start_point + v_direction;
