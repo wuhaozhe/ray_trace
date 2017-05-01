@@ -110,6 +110,13 @@ public:
 		T temp_z = z * a;
 		return vector3<T>(temp_x, temp_y, temp_z);
 	}
+	vector3<T> operator/(const double &a)
+	{
+		T temp_x = x / a;
+		T temp_y = y / a;
+		T temp_z = z / a;
+		return vector3<T>(temp_x, temp_y, temp_z);
+	}
 	vector3<T> operator+(const vector3<T> &a)
 	{
 		T plus_x = a.x + x;
@@ -137,6 +144,10 @@ public:
 		return vector3<T>(cross_x, cross_y, cross_z);
 	}
 };
+inline bool operator<(const vector3<double> a, const vector3<double> b)
+{
+	return a.length < b.length;
+}
 
 template<typename T>
 class Matrix3               //æÿ’Û

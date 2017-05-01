@@ -30,7 +30,7 @@ Plane::~Plane()
 
 void Plane::init()
 {
-	object_type = Object_type::Plane;
+	object_type = Object_type::_Plane;
 }
 
 bool Plane::intersect(Ray input_ray, vector3<double> &intersect_point)
@@ -51,11 +51,23 @@ bool Plane::intersect(Ray input_ray, vector3<double> &intersect_point)
 		else
 		{
 			intersect_point = input_ray.start_point + input_ray.direction * t;
-			//cout <<"direction"<< input_ray.direction.x << " " << input_ray.direction.y << " " << input_ray.direction.z << endl;
-			//cout <<"start"<< input_ray.start_point.x << " " << input_ray.start_point.y << " " << input_ray.start_point.z << endl;
-			//cout << "intersect" << intersect_point.x << " " << intersect_point.y << " " << intersect_point.z << endl;
 			return true;
 		}
+	}
+}
+
+double Plane::signed_distance(Ray input_ray)
+{
+	double denominator = input_ray.direction * normal_vector;
+	if (fabs(denominator) < limit_zero)
+	{
+		return std::numeric_limits<double>::infinity();
+	}
+	else
+	{
+		double numerator = input_ray.start_point * normal_vector + D;
+		double t = (-1 * numerator) / denominator;
+		return t;            //标准化的直线参数方程中,t即为距离
 	}
 }
 

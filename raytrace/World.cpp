@@ -2,11 +2,11 @@
 #include <map>
 
 
-World::World(): light(vector3<double>(-25, 1, 50), vector3<double>(0, 1, 50), vector3<double>(0, 0, -1), 10, 0.9)
+World::World() : light(vector3<double>(-25, 1, 50), vector3<double>(0, 1, 50), vector3<double>(0, 0, -1), 10, 0.9)
 {
 	//light(vector3<double>(-25, 1, 50), vector3<double>(0.5, 0, 0), vector3<double>(0, 0.5, 0), vector3<double>(0, 0, -1), 5, 5, 0.9)
 	//light(vector3<double>(-25, 1, 50), vector3<double>(0, 1, 50), vector3<double>(0, 0, -1), 10, 0.9)
-	camera = Camera(vector3<double>(-20, 0, 5), vector3<double>(1, 0, 0), vector3<double>(0, 0, 1));
+	camera = Camera(vector3<double>(-5, 0, 5), vector3<double>(1, 0, 0), vector3<double>(0, 0, 1));
 	drawer_instance = drawer::get_instance();
 	drawer_instance->set_size(camera.size_x, camera.size_y);
 }
@@ -90,8 +90,8 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 		vector3<double> normal_vector;
 		if (objects[object_index]->reflective)
 		{
-			return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector) * 
-							(1 - objects[object_index]->reflect_coefficient);
+			return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector) *
+				(1 - objects[object_index]->reflect_coefficient);
 			vector3<double> reflect_direction = reflect(current_ray.direction, normal_vector);
 			Ray reflect_ray(_intersect_point, reflect_direction);
 			return_color = return_color + intersect_color(n + 1, reflect_ray, refract_stack) * objects[object_index]->reflect_coefficient;
@@ -99,8 +99,8 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 		else if (objects[object_index]->refractive)
 		{
 			double last_n = current_n;            //入射光线折射率
-			//return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector) *
-			//	(1 - objects[object_index]->refract_coefficient);
+												  //return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector) *
+												  //	(1 - objects[object_index]->refract_coefficient);
 			return_color = determine_color_normalvec(object_index, _intersect_point, current_ray.direction, normal_vector);
 			//cout << (int)return_color.r << " " << (int)return_color.g << " " << (int)return_color.b << endl;
 			if (object_index == refract_stack.top())            //将要射出该物体
@@ -167,6 +167,7 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 Color World::ray_trace(int i, int j)
 {
 	Ray current_ray = camera.generate_ray(i, j);             //产生i, j像素上的光线
+															 //cout << "generate " << current_ray.start_point << " " << current_ray.direction << endl;
 	stack<int> refract_stack;
 	refract_stack.push(-1);
 	current_n = 1;
@@ -176,7 +177,7 @@ Color World::ray_trace(int i, int j)
 void World::ray_trace()
 {
 	cout << camera.size_x << " " << camera.size_y << endl;
-	for(int i = 0; i < camera.size_x; i++)
+	for (int i = 0; i < camera.size_x; i++)
 		for (int j = 0; j < camera.size_y; j++)
 		{
 			//cout << i << " " << j << endl;

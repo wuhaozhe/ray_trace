@@ -3,8 +3,8 @@ e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\vc140.idb
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\beizer_line.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\beizer_rotate.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\beizer_surface.obj
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\beizer_surface_object.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\boundingbox.obj
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\bsptree.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\camera.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\drawer.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\lodepng.obj
@@ -17,6 +17,7 @@ e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\ray.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\sphere.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\triangle.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\world.obj
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\debug\bsptree.obj
 e:\大二下\图形学\第一次大作业\raytrace\debug\raytrace.ilk
 e:\大二下\图形学\第一次大作业\raytrace\debug\raytrace.exe
 e:\大二下\图形学\第一次大作业\raytrace\debug\raytrace.pdb

@@ -14,7 +14,7 @@ Triangle::~Triangle()
 
 void Triangle::init()
 {
-	object_type = Object_type::Triangle;
+	object_type = Object_type::_Triangle;
 }
 
 Triangle::Triangle(vector3<double> vertex1, vector3<double> vertex2, vector3<double> vertex3)
@@ -63,7 +63,7 @@ bool Triangle::intersect(Ray input_ray, vector3<double> &intersect_point)
 {
 	vector3<double> S = vertex[0] - input_ray.start_point;
 	vector3<double> solution = solve_equation(input_ray.direction, E1, E2, S);
-	if (solution.x > limit_zero && solution.y >= 0 && solution.z >= 0 && (solution.y + solution.z) <= 1)
+	if (solution.x > -1 * limit_zero && solution.y >= -1 * limit_zero && solution.z >= -1 * limit_zero && (solution.y + solution.z) <= 1)
 	{
 		intersect_point = input_ray.direction * solution.x + input_ray.start_point;
 		return true;

@@ -1,4 +1,4 @@
-#ifndef BSPTREE_H
+ï»¿#ifndef BSPTREE_H
 #define BSPTREE_H
 #include "Point.h"
 #include "Object.h"
@@ -12,28 +12,37 @@ class BSPTree_Node
 private:
 
 public:
-	BSPTree_Node* left_child;      //×óº¢×Ó
-	BSPTree_Node* right_child;       //ÓÒº¢×Ó
-	BoundingBox box;                 //µ±Ç°½ÚµãËù´ú±íµÄbox
-	vector<int> object_list;           //´æ´¢µ±Ç°½ÚµãËù´æ´¢µÄobjectµÄË÷Òı
-	int cut;                          //ÈôcutÎª0£¬ ´ú±íÑØxÖá·½ÏòÇĞ,cutÎª1£¬´ú±íÑØyÖá·½ÏòÇĞ,cutÎª2£¬´ú±íÑØzÖá·½ÏòÇĞ
-	BSPTree_Node(): left_child(nullptr), right_child(nullptr), cut(0)
+	BSPTree_Node* left_child;      //å·¦å­©å­
+	BSPTree_Node* right_child;       //å³å­©å­
+	BoundingBox box;                 //å½“å‰èŠ‚ç‚¹æ‰€ä»£è¡¨çš„box
+	vector<int> object_list;           //å­˜å‚¨å½“å‰èŠ‚ç‚¹æ‰€å­˜å‚¨çš„objectçš„ç´¢å¼•
+	int cut;                          //è‹¥cutä¸º0ï¼Œ ä»£è¡¨æ²¿xè½´æ–¹å‘åˆ‡,cutä¸º1ï¼Œä»£è¡¨æ²¿yè½´æ–¹å‘åˆ‡,cutä¸º2ï¼Œä»£è¡¨æ²¿zè½´æ–¹å‘åˆ‡
+	BSPTree_Node() : left_child(nullptr), right_child(nullptr), cut(0)
 	{
 	}
+	BSPTree_Node(vector3<double> in_minpoint, vector3<double> in_maxpoint) : left_child(nullptr), right_child(nullptr), cut(0), box(in_minpoint, in_maxpoint)
+	{
+
+	}
 };
-class BSPTree                  //¶ş·ÖÊ÷
+class BSPTree                  //äºŒåˆ†æ ‘
 {
 private:
-	vector<Object*> objects;
-	BSPTree_Node* root;                  //BSPTree_NodeµÄ¸ù½Úµã
-	void resursive_build(BSPTree_Node* parent, int current_depth);               //ÀûÓÃ¸¸½Úµãµİ¹éµÄ¹¹Ôì×ÓÊ÷
+	BSPTree_Node* root;                  //BSPTree_Nodeçš„æ ¹èŠ‚ç‚¹
+	void sub_divide(BSPTree_Node* parent, int current_depth);               //åˆ©ç”¨çˆ¶èŠ‚ç‚¹é€’å½’çš„æ„é€ å­æ ‘
+	bool RayTreeIntersect(Ray input_ray, BSPTree_Node* tree_node, double min, double max, vector3<double> &point, int &index);          //é€’å½’çš„åˆ©ç”¨BSPTreeæ±‚äº¤,pointä¸ºæ±‚äº¤çš„äº¤ç‚¹ï¼Œindexä¸ºç›¸äº¤çš„ç‰©ä½“
 public:
-	int leaf_object_num = 2;        //Ò¶×Ó½áµãµÄÎïÌåÊıÁ¿
-	int depth_limit = 100;            //bsp_treeµÄÉî¶ÈÏŞÖÆ
+	vector<Object*> objects;
+	vector3<double> min_point, max_point;            //è®¾å®šBSPTreeæ‰€ä»£è¡¨çš„ç©ºé—´çš„å¤§å°
+	int leaf_object_num = 10;        //å¶å­ç»“ç‚¹çš„ç‰©ä½“æ•°é‡
+	int depth_limit = 100;            //bsp_treeçš„æ·±åº¦é™åˆ¶
 	BSPTree();
+	BSPTree(vector3<double> in_min_point, vector3<double> in_max_point);
 	~BSPTree();
-	bool intersect_point(Ray input_ray, int &object_index, vector3<double> &point);                   //»ñÈ¡¾àÀëinput_ray×î½üµÄ½»µã
-	void build_tree();                   //½¨Á¢Ê÷
+	bool intersect_point(Ray input_ray, int &object_index, vector3<double> &point);                   //è·å–è·ç¦»input_rayæœ€è¿‘çš„äº¤ç‚¹
+	void build_tree();                   //å»ºç«‹æ ‘
+private:
+	BoundingBox box;
 };
 
 #endif

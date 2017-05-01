@@ -84,6 +84,9 @@
     <ClCompile Include="BoundingBox.cpp">
       <Filter>源文件\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Beizer_Surface_Object.cpp">
+      <Filter>源文件\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drawer.h">
@@ -138,6 +141,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BoundingBox.h">
+      <Filter>头文件\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Beizer_Surface_Object.h">
       <Filter>头文件\Object</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@
 
 void Sphere::init()
 {
-	object_type = Object_type::Sphere;
+	object_type = Object_type::_Sphere;
 }
 Sphere::Sphere()
 {
