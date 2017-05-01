@@ -1,10 +1,10 @@
 ﻿  World.cpp
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(56): warning C4018: “<”: 有符号/无符号不匹配
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(69): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(57): warning C4018: “<”: 有符号/无符号不匹配
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(70): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(71): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(180): warning C4018: “<”: 有符号/无符号不匹配
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(72): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(181): warning C4018: “<”: 有符号/无符号不匹配
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\world.cpp(182): warning C4018: “<”: 有符号/无符号不匹配
   Triangle.cpp
   Sphere.cpp
   Ray.cpp

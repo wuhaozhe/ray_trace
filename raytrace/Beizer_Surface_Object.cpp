@@ -74,15 +74,19 @@ bool Beizer_Surface_Object::intersect(Ray input_ray, vector3<double> &intersect_
 	int intersect_index;
 	if (box->intersect(input_ray, intersect_point))
 	{
-		//cout << input_ray.start_point << " " << input_ray.direction << " box " << box->min_point << " " << box->max_point << endl;
 		if (Tree.intersect_point(input_ray, intersect_index, intersect_point))
 		{
-			//cout << "here" << endl;
+			//cout << input_ray.start_point << " " << input_ray.direction << " box " << box->min_point << " " << box->max_point << endl;
+			//cout << "intersect" << endl;
 			point_index_map[intersect_point] = intersect_index;
 			return true;
 		}
 		else
+		{
+			//cout << input_ray.start_point << " " << input_ray.direction << " box " << box->min_point << " " << box->max_point << endl;
+			//cout << "not intersect" << endl;
 			return false;
+		}
 	}
 	else
 	{

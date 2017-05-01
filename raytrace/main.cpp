@@ -18,18 +18,38 @@ int main()
 	point_array[0] = vector3<double>(0, 0, -1);
 	point_array[1] = vector3<double>(0, 2, 1);
 	point_array[2] = vector3<double>(0, 4, 3);
-	point_array[3] = vector3<double>(2, 0, -1);
-	point_array[4] = vector3<double>(2, 2, 1);
-	point_array[5] = vector3<double>(2, 4, 3);
-	point_array[6] = vector3<double>(4, 0, -1);
-	point_array[7] = vector3<double>(4, 2, 1);
-	point_array[8] = vector3<double>(4, 4, 3);
-	Object* beizer = new Beizer_Surface_Object(3, 3, point_array);
-	cout << "haha" << endl;
+	point_array[3] = vector3<double>(2, 0, 3.5);
+	point_array[4] = vector3<double>(2, 2, 1.5);
+	point_array[5] = vector3<double>(2, 4, 0);
+	point_array[6] = vector3<double>(4, 0, 0);
+	point_array[7] = vector3<double>(4, 2, 2);
+	point_array[8] = vector3<double>(4, 4, 4);
+	Beizer_Surface_Object* beizer = new Beizer_Surface_Object(3, 3, point_array);
+	//cout << "haha" << endl;
 	Object* plane = new Plane(vector3<double>(0, 0, -1), vector3<double>(0, 0, 1));
 	world.add_object(beizer);
 	world.add_object(plane);
 	world.ray_trace();
 	(drawer::get_instance())->output_image();
+	/*Ray temp_ray(vector3<double>(1.87248, 2.625, -1), vector3<double>(-0.465974, -0.0281778, 0.88435));
+	vector3<double> intercept_point;
+	if (beizer->intersect(temp_ray, intercept_point))
+	{
+		cout << "intercept" << endl;
+	}
+	else
+	{
+		cout << "no intercept" << endl;
+	}
+	for (int i = 0; i < (beizer->Tree).objects.size(); i++)
+	{
+		if (((beizer->Tree).objects[i])->intersect(temp_ray, intercept_point))
+		{
+			cout << "intercept" << endl;
+			cout << i << endl;
+			Triangle* current_triangle = (Triangle*)(beizer->Tree).objects[i];
+			cout << current_triangle->vertex[0] << " " << current_triangle->vertex[1] << " " << current_triangle->vertex[2] << endl;
+		}
+	}*/
 	return 0;
 }

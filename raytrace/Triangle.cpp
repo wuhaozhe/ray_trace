@@ -43,7 +43,7 @@ Triangle::Triangle(vector3<double> vertex1, vector3<double> vertex2, vector3<dou
 vector3<double> Triangle::solve_equation(vector3<double> a, vector3<double> b, vector3<double> c, vector3<double> d)
 {
 	double denominator = det(a, b, c);
-	if (denominator != 0)
+	if (fabs(denominator) > limit_zero)         //denominator != 0
 	{
 		double det_1 = det(d, b, c);
 		double det_2 = det(a, d, c);
@@ -55,7 +55,7 @@ vector3<double> Triangle::solve_equation(vector3<double> a, vector3<double> b, v
 	}
 	else
 	{
-		return vector3<double>();
+		return vector3<double>(100, 100, 100);
 	}
 }
 
@@ -63,7 +63,7 @@ bool Triangle::intersect(Ray input_ray, vector3<double> &intersect_point)
 {
 	vector3<double> S = vertex[0] - input_ray.start_point;
 	vector3<double> solution = solve_equation(input_ray.direction, E1, E2, S);
-	if (solution.x > -1 * limit_zero && solution.y >= -1 * limit_zero && solution.z >= -1 * limit_zero && (solution.y + solution.z) <= 1)
+	if (solution.x > -1 * limit_zero && solution.y >= -1 * limit_zero && solution.z >= -1 * limit_zero && (solution.y + solution.z) <= 1 + limit_zero)
 	{
 		intersect_point = input_ray.direction * solution.x + input_ray.start_point;
 		return true;

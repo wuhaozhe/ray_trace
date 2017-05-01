@@ -171,11 +171,11 @@ bool BoundingBox::plane_aabb_overlap(double a, double b, double c, double d, vec
 	vector3<double> extents = in_max_point - center;
 	double r = extents.x * fabs(a) + extents.y * fabs(b) + extents.z * fabs(c);
 	double s = fabs(center.x * a + center.y * b + center.z * c + d);
-	return s <= r;
+	return s <= r + limit_zero;
 }
 bool BoundingBox::aabb_overlap_1d(double x_min1, double x_max1, double x_min2, double x_max2)
 {
-	if (x_max1 > x_min2 && x_max2 > x_min1)
+	if (x_max1 + limit_zero >= x_min2 && x_max2 + limit_zero >= x_min1)
 	{
 		return true;
 	}
@@ -232,7 +232,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.y * fabs(f0.z) + extents.z * fabs(f0.y);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -244,7 +244,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.y * fabs(f1.z) + extents.z * fabs(f1.y);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -256,7 +256,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.y * fabs(f2.z) + extents.z * fabs(f2.y);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -268,7 +268,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.x * fabs(f0.z) + extents.z * fabs(f0.x);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -280,7 +280,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.x * fabs(f1.z) + extents.z * fabs(f1.x);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -292,7 +292,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.x * fabs(f2.z) + extents.z * fabs(f2.x);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -304,7 +304,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.x * fabs(f0.y) + extents.y * fabs(f0.x);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -316,7 +316,7 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.x * fabs(f1.y) + extents.y * fabs(f1.x);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
@@ -328,21 +328,21 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	r = extents.x * fabs(f2.y) + extents.y * fabs(f2.x);
 	three_max = max(p0, max(p1, p2));
 	three_min = min(p0, min(p1, p2));
-	if (max(-1 * three_max, three_min) > r)
+	if (max(-1 * three_max, three_min) > r + limit_zero)
 	{
 		return false;
 	}
 
 	//test the threeaxes corresponding to the face normals of AABB b(category 1)
-	if (max(v0.x, max(v1.x, v2.x)) < -1 * extents.x || min(v0.x, min(v1.x, v2.x)) > extents.x)
+	if (max(v0.x, max(v1.x, v2.x)) - limit_zero < -1 * extents.x || min(v0.x, min(v1.x, v2.x)) + limit_zero > extents.x)
 	{
 		return false;
 	}
-	if (max(v0.y, max(v1.y, v2.y)) < -1 * extents.y || min(v0.y, min(v1.y, v2.y)) > extents.y)
+	if (max(v0.y, max(v1.y, v2.y)) - limit_zero < -1 * extents.y || min(v0.y, min(v1.y, v2.y)) + limit_zero > extents.y)
 	{
 		return false;
 	}
-	if (max(v0.z, max(v1.z, v2.z)) < -1 * extents.z || min(v0.z, min(v1.z, v2.z)) > extents.z)
+	if (max(v0.z, max(v1.z, v2.z)) - limit_zero < -1 * extents.z || min(v0.z, min(v1.z, v2.z)) + limit_zero > extents.z)
 	{
 		return false;
 	}

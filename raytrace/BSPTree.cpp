@@ -122,7 +122,7 @@ bool BSPTree::intersect_point(Ray input_ray, int &object_index, vector3<double> 
 	double t_min, t_max;
 	if (box.intersect(input_ray, point, t_min, t_max))
 	{
-		return RayTreeIntersect(input_ray, root, t_min, t_max, point, object_index);
+		return RayTreeIntersect(input_ray, root, t_min - limit_zero, t_max + limit_zero, point, object_index);
 	}
 	else
 	{
@@ -166,52 +166,94 @@ bool BSPTree::RayTreeIntersect(Ray input_ray, BSPTree_Node* tree_node, double _m
 	if (tree_node->cut == 0)        //cut with x_axis
 	{
 		cut_plane = new Plane(((tree_node->box).min_point + (tree_node->box).max_point) / 2, vector3<double>(1, 0, 0));
-		if (input_ray.start_point.x > (cut_plane->passed_point).x)
+		if (fabs(input_ray.start_point.x - (cut_plane->passed_point).x) < limit_zero)
 		{
-			near = tree_node->right_child;
-			far = tree_node->left_child;
+			if (input_ray.direction.x > 0)          //向上射出right为远端，否则right为近端
+			{
+				return RayTreeIntersect(input_ray, tree_node->right_child, 0, _max, point, index);
+			}
+			else
+			{
+				return RayTreeIntersect(input_ray, tree_node->left_child, 0, _max, point, index);
+			}
 		}
 		else
 		{
-			near = tree_node->left_child;
-			far = tree_node->right_child;
+			if (input_ray.start_point.x > (cut_plane->passed_point).x)
+			{
+				near = tree_node->right_child;
+				far = tree_node->left_child;
+			}
+			else
+			{
+				near = tree_node->left_child;
+				far = tree_node->right_child;
+			}
 		}
 	}
 	else if (tree_node->cut == 1)            //cut with y_axis
 	{
 		cut_plane = new Plane(((tree_node->box).min_point + (tree_node->box).max_point) / 2, vector3<double>(0, 1, 0));
-		if (input_ray.start_point.y > (cut_plane->passed_point).y)
+		if (fabs(input_ray.start_point.y - (cut_plane->passed_point).y) < limit_zero)
 		{
-			near = tree_node->right_child;
-			far = tree_node->left_child;
+			if (input_ray.direction.y > 0)          //向上射出right为远端，否则right为近端
+			{
+				return RayTreeIntersect(input_ray, tree_node->right_child, 0, _max, point, index);
+			}
+			else
+			{
+				return RayTreeIntersect(input_ray, tree_node->left_child, 0, _max, point, index);
+			}
 		}
 		else
 		{
-			near = tree_node->left_child;
-			far = tree_node->right_child;
+			if (input_ray.start_point.y > (cut_plane->passed_point).y)
+			{
+				near = tree_node->right_child;
+				far = tree_node->left_child;
+			}
+			else
+			{
+				near = tree_node->left_child;
+				far = tree_node->right_child;
+			}
 		}
 	}
 	else                 //cut with z_axis
 	{
 		cut_plane = new Plane(((tree_node->box).min_point + (tree_node->box).max_point) / 2, vector3<double>(0, 0, 1));
-		if (input_ray.start_point.z > (cut_plane->passed_point).z)
+		if (fabs(input_ray.start_point.z - (cut_plane->passed_point).z) < limit_zero)
 		{
-			near = tree_node->right_child;
-			far = tree_node->left_child;
+			if (input_ray.direction.z > 0)          //向上射出right为远端，否则right为近端
+			{
+				return RayTreeIntersect(input_ray, tree_node->right_child, 0, _max, point, index);
+			}
+			else
+			{
+				return RayTreeIntersect(input_ray, tree_node->left_child, 0, _max, point, index);
+			}
 		}
 		else
 		{
-			near = tree_node->left_child;
-			far = tree_node->right_child;
+			if (input_ray.start_point.z > (cut_plane->passed_point).z)
+			{
+				near = tree_node->right_child;
+				far = tree_node->left_child;
+			}
+			else
+			{
+				near = tree_node->left_child;
+				far = tree_node->right_child;
+			}
 		}
 	}
 	double dis = cut_plane->signed_distance(input_ray);
 	delete cut_plane;
-	if (dis > _max || dis < 0)              //whole interval is on near side
+	if (dis > _max + limit_zero || dis < -1 * limit_zero)              //whole interval is on near side
 	{
 		return RayTreeIntersect(input_ray, near, _min, _max, point, index);
 	}
-	else if (dis < _min)               //whole interval is on far side
+	else if (dis < _min - limit_zero)               //whole interval is on far side
 	{
 		return RayTreeIntersect(input_ray, far, _min, _max, point, index);
 	}
