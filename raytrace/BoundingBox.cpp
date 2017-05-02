@@ -354,3 +354,16 @@ bool BoundingBox::triangle_aabb_overlap(vector3<double> a, vector3<double> b, ve
 	double temp_d = 0 - (temp_a * a.x + temp_b * a.y + temp_c * a.z);
 	return plane_aabb_overlap(temp_a, temp_b, temp_c, temp_d, in_min_point, in_max_point);
 }
+
+BoundingBox Merge_BoundingBox(const BoundingBox &box1, const BoundingBox &box2)
+{
+	vector3<double> Min_point;
+	vector3<double> Max_point;
+	Min_point.x = min(box1.min_point.x, box2.min_point.x);
+	Min_point.y = min(box1.min_point.y, box2.min_point.y);
+	Min_point.z = min(box1.min_point.z, box2.min_point.z);
+	Max_point.x = max(box1.max_point.x, box2.max_point.x);
+	Max_point.y = max(box1.max_point.y, box2.max_point.y);
+	Max_point.z = max(box1.max_point.z, box2.max_point.z);
+	return BoundingBox(Min_point, Max_point);
+}

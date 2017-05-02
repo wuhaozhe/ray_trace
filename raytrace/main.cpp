@@ -6,6 +6,8 @@
 #include "Beizer_rotate.h"
 #include "Beizer_Surface.h"
 #include "Beizer_Surface_Object.h"
+#include "Beizer_Rotate_Object.h"
+#include "BeizerBSPTree.h"
 #include "BoundingBox.h"
 #include <iostream>
 #include <cmath>
@@ -13,7 +15,7 @@ using namespace std;
 
 int main()
 {
-	World world;
+	/*World world;
 	vector3<double> point_array[9];
 	point_array[0] = vector3<double>(0, 0, -1);
 	point_array[1] = vector3<double>(0, 2, 1);
@@ -30,7 +32,7 @@ int main()
 	world.add_object(beizer);
 	world.add_object(plane);
 	world.ray_trace();
-	(drawer::get_instance())->output_image();
+	(drawer::get_instance())->output_image();*/
 	/*Ray temp_ray(vector3<double>(1.87248, 2.625, -1), vector3<double>(-0.465974, -0.0281778, 0.88435));
 	vector3<double> intercept_point;
 	if (beizer->intersect(temp_ray, intercept_point))
@@ -51,5 +53,23 @@ int main()
 			cout << current_triangle->vertex[0] << " " << current_triangle->vertex[1] << " " << current_triangle->vertex[2] << endl;
 		}
 	}*/
+	vector3<double> point_array2[4];
+	point_array2[0] = vector3<double>(4, 0, 0);
+	point_array2[1] = vector3<double>(1, 0, 1);
+	point_array2[2] = vector3<double>(2, 0, 2);
+	point_array2[3] = vector3<double>(8, 0, 3);
+	BeizerBSPTree beizer_bsp(point_array2);
+	for (int i = 0; i < 32; i++)
+	{
+		cout << "x section " << beizer_bsp.x_sections[i].Min << " " << beizer_bsp.x_sections[i].Max << endl;
+		cout << "z section " << beizer_bsp.z_sections[i].Min << " " << beizer_bsp.z_sections[i].Max << endl;
+		cout << endl;
+	}
+	Beizer_rotate rotate_obj;
+	for (int i = 0; i < 4; i++)
+	{
+		rotate_obj.add_control_point(point_array2[i]);
+	}
+	rotate_obj.output_obj();
 	return 0;
 }

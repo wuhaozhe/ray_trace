@@ -1,5 +1,6 @@
 #include "Beizer_Line.h"
 #include <algorithm>
+#include <assert.h>
 using namespace std;
 
 
@@ -53,4 +54,39 @@ vector3<double> Beizer_Line::get_point(double t)
 		delete[] temp_vec2;
 		return return_vector;
 	}
+}
+
+double Beizer_Line::Bernstein(double t, int param_i, int param_n)
+{
+	if (param_i < 0 || param_i > param_n)
+	{
+		return 0;
+	}
+	if (param_n == 1)
+	{
+		if (param_i == 0)
+		{
+			return 1 - t;
+		}
+		else
+		{
+			return t;
+		}
+	}
+	return (1 - t) * Bernstein(t, param_i, param_n - 1) + t * Bernstein(t, param_i - 1, param_n - 1);
+}
+
+double Beizer_Line::Bernstein_Derivative(double t, int param_i, int param_n)      
+{
+	assert(param_i >= 0 && param_i <= param_n);
+	//µÝ¹éµÄÇó½â
+	if (param_i == 0)
+	{
+		return param_n * -1 * Bernstein(t, param_i, param_n - 1);
+	}
+	if(param_i == param_n)
+	{
+		return param_n * Bernstein(t, param_i - 1, param_n - 1);
+	}
+	return param_n * (Bernstein(t, param_i - 1, param_n - 1) - Bernstein(t, param_i, param_n - 1));
 }

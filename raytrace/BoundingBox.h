@@ -22,3 +22,4 @@ public:
 	~BoundingBox();
 };
 
+BoundingBox Merge_BoundingBox(const BoundingBox &box1, const BoundingBox &box2);
