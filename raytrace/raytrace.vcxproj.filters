@@ -87,11 +87,8 @@
     <ClCompile Include="Beizer_Surface_Object.cpp">
       <Filter>源文件\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Beizer_Rotate_Object.cpp">
-      <Filter>源文件\Object</Filter>
-    </ClCompile>
     <ClCompile Include="BeizerBSPTree.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,11 +149,8 @@
     <ClInclude Include="Beizer_Surface_Object.h">
       <Filter>头文件\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Beizer_Rotate_Object.h">
-      <Filter>头文件\Object</Filter>
-    </ClInclude>
     <ClInclude Include="BeizerBSPTree.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,7 +6,6 @@
 #include "Beizer_rotate.h"
 #include "Beizer_Surface.h"
 #include "Beizer_Surface_Object.h"
-#include "Beizer_Rotate_Object.h"
 #include "BeizerBSPTree.h"
 #include "BoundingBox.h"
 #include <iostream>
@@ -53,17 +52,23 @@ int main()
 			cout << current_triangle->vertex[0] << " " << current_triangle->vertex[1] << " " << current_triangle->vertex[2] << endl;
 		}
 	}*/
+	World world;
 	vector3<double> point_array2[4];
-	point_array2[0] = vector3<double>(4, 0, 0);
-	point_array2[1] = vector3<double>(1, 0, 1);
-	point_array2[2] = vector3<double>(2, 0, 2);
-	point_array2[3] = vector3<double>(8, 0, 3);
-	BeizerBSPTree beizer_bsp(point_array2);
-	Beizer_rotate rotate_obj;
+	point_array2[0] = vector3<double>(4, 0, 0.1);
+	point_array2[1] = vector3<double>(1, 0, 1.1);
+	point_array2[2] = vector3<double>(2, 0, 2.1);
+	point_array2[3] = vector3<double>(0, 0, 3.1);
+	Object* beizer_bsp = new BeizerBSPTree(point_array2);
+	world.add_object(beizer_bsp);
+	Object* plane = new Plane(vector3<double>(0, 0, -1), vector3<double>(0, 0, 1));
+	world.add_object(plane);
+	world.ray_trace();
+	(drawer::get_instance())->output_image();
+	Beizer_rotate rotate;
 	for (int i = 0; i < 4; i++)
 	{
-		rotate_obj.add_control_point(point_array2[i]);
+		rotate.add_control_point(point_array2[i]);
 	}
-	rotate_obj.output_obj();
+	rotate.output_obj();
 	return 0;
 }

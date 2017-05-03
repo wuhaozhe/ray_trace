@@ -1,12 +1,24 @@
 #define PI 3.1415926535
 #include "BeizerBSPTree.h"
+#include "PhongModel.h"
 #include <assert.h>
 #include <cmath>
 #include <algorithm>
 #include <iostream>
 
+void BeizerBSPTree::init()
+{
+	object_type = Object_type::_Beizer_Rotate;
+}
 BeizerBSPTree::BeizerBSPTree(vector3<double> point_array[])
 {
+	init();
+	color_feature.Kdg = 0.3;
+	color_feature.Ksg = 0.65;
+	color_feature.Kag = 0.05;
+	color_feature.Kdr = 0.3;
+	color_feature.Ksr = 0.65;
+	color_feature.Kar = 0.05;
 	extreme_x1 = NOT_LEGAL, extreme_x2 = NOT_LEGAL;
 	extreme_z1 = NOT_LEGAL, extreme_z2 = NOT_LEGAL;
 	for (int i = 0; i < 4; i++)
@@ -198,7 +210,6 @@ bool BeizerBSPTree::intersect(Ray input_ray, vector3<double>& input_point)
 	double intersect_t = std::numeric_limits<double>::max();
 	double t_surface = NOT_LEGAL, theta_surface = NOT_LEGAL;
 	RayTreeIntersect(input_ray, root, intersect_t, t_surface, theta_surface);
-	//cout << input_ray.start_point + input_ray.direction * intersect_t;
 	if (intersect_t < std::numeric_limits<double>::max() && t_surface != NOT_LEGAL && theta_surface != NOT_LEGAL)         //与bounding_box相交
 	{
 		if (NewtonIteration(input_ray, intersect_t, t_surface, theta_surface))
@@ -231,7 +242,6 @@ void BeizerBSPTree::RayTreeIntersect(Ray input_ray, BeizerBSPTree_Node* tree_nod
 		{
 			if (temp_tmin < t)
 			{
-				cout << t << endl;
 				t = temp_tmin;
 				t_surface = tree_node->t;
 				theta_surface = tree_node->theta;
@@ -279,8 +289,6 @@ bool BeizerBSPTree::NewtonIteration(Ray input_ray, double& line_t, double& surfa
 		line_t -= delta_t;
 		surface_t -= delta_surfacet;
 		theta += delta_theta;
-		//cout << delta_t << " " << delta_surfacet << " " << delta_theta << endl;
-		//cout << surface_partial_surfacet<< endl;
 	}
 	if (max(fabs(delta_t), max(fabs(delta_surfacet), fabs(delta_theta))) > solve_precision)          //认为迭代时迭飞了，没有交点
 	{
@@ -290,4 +298,26 @@ bool BeizerBSPTree::NewtonIteration(Ray input_ray, double& line_t, double& surfa
 	{
 		return true;
 	}
+}
+
+Color BeizerBSPTree::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in)
+{
+	light.direction = (target_pos - light.start_point).normallize();
+	vector3<double> p_partial_t = beizer_line.Beizer_Derivative(last_surfacet);
+	vector3<double> beizer_point = beizer_line.get_point(last_surfacet);
+	double x_partial_t = p_partial_t.x * cos(last_theta);
+	double x_partial_theta = beizer_point.x * sin(last_theta) * -1;
+	double y_partial_t = p_partial_t.x * sin(last_theta);
+	double y_partial_theta = beizer_point.x * cos(last_theta);
+	double z_partial_t = p_partial_t.z;
+	double z_partial_theta = 0;
+	double A = y_partial_t * z_partial_theta - y_partial_theta * z_partial_t;
+	double B = z_partial_t * x_partial_theta - z_partial_theta * x_partial_t;
+	double C = x_partial_t * y_partial_theta - x_partial_theta * y_partial_t;
+	in = vector3<double>(A, B, C).normallize();
+	if (in * light.direction > 0)
+	{
+		in = in * -1;
+	}
+	return PhongModel::reflect_color(light, in, view_direction, color_feature);
 }
