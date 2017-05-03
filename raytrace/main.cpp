@@ -59,12 +59,6 @@ int main()
 	point_array2[2] = vector3<double>(2, 0, 2);
 	point_array2[3] = vector3<double>(8, 0, 3);
 	BeizerBSPTree beizer_bsp(point_array2);
-	for (int i = 0; i < 32; i++)
-	{
-		cout << "x section " << beizer_bsp.x_sections[i].Min << " " << beizer_bsp.x_sections[i].Max << endl;
-		cout << "z section " << beizer_bsp.z_sections[i].Min << " " << beizer_bsp.z_sections[i].Max << endl;
-		cout << endl;
-	}
 	Beizer_rotate rotate_obj;
 	for (int i = 0; i < 4; i++)
 	{

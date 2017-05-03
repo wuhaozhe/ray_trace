@@ -90,3 +90,13 @@ double Beizer_Line::Bernstein_Derivative(double t, int param_i, int param_n)
 	}
 	return param_n * (Bernstein(t, param_i - 1, param_n - 1) - Bernstein(t, param_i, param_n - 1));
 }
+
+vector3<double> Beizer_Line::Beizer_Derivative(double t)
+{
+	vector3<double> return_value = vector3<double>(0, 0, 0);
+	for (int i = 0; i < controlled_point.size(); i++)
+	{
+		return_value = return_value + controlled_point[i] * Bernstein_Derivative(t, i, controlled_point.size() - 1);
+	}
+	return return_value;
+}
