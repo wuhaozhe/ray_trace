@@ -76,9 +76,7 @@ bool Beizer_Surface_Object::intersect(Ray input_ray, vector3<double> &intersect_
 	{
 		if (Tree.intersect_point(input_ray, intersect_index, intersect_point))
 		{
-			//cout << input_ray.start_point << " " << input_ray.direction << " box " << box->min_point << " " << box->max_point << endl;
-			//cout << "intersect" << endl;
-			point_index_map[intersect_point] = intersect_index;
+			last_index = intersect_index;
 			return true;
 		}
 		else
@@ -97,6 +95,5 @@ bool Beizer_Surface_Object::intersect(Ray input_ray, vector3<double> &intersect_
 
 Color Beizer_Surface_Object::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in)
 {
-	assert(point_index_map.find(target_pos) != point_index_map.end());
-	return Tree.objects[point_index_map[target_pos]]->get_color_normalvec(target_pos, view_direction, light, in);
+	return Tree.objects[last_index]->get_color_normalvec(target_pos, view_direction, light, in);
 }

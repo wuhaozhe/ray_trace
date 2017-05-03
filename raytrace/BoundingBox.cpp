@@ -25,6 +25,19 @@ BoundingBox::~BoundingBox()
 {
 }
 
+bool BoundingBox::contain(vector3<double> input)
+{
+	if (input.x < max_point.x + limit_zero && input.y < max_point.y + limit_zero && input.z < max_point.z + limit_zero)
+	{
+		if (input.x > min_point.x - limit_zero && input.y > min_point.y - limit_zero && input.z > min_point.z - limit_zero)
+		{
+			return true;
+		}
+		return false;
+	}
+	return false;
+}
+
 bool BoundingBox::intersect(Ray input_ray, vector3<double> &intersect_point, double &in_t_min, double &in_t_max)
 {
 	double tx_min, ty_min, tz_min, tx_max, ty_max, tz_max;

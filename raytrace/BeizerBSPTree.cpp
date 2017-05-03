@@ -13,12 +13,15 @@ void BeizerBSPTree::init()
 BeizerBSPTree::BeizerBSPTree(vector3<double> point_array[])
 {
 	init();
-	color_feature.Kdg = 0.3;
+	refractive = true;
+	refract_coefficient = 0.99;
+	n = 1.1;
+	/*color_feature.Kdg = 0.3;
 	color_feature.Ksg = 0.65;
 	color_feature.Kag = 0.05;
 	color_feature.Kdr = 0.3;
 	color_feature.Ksr = 0.65;
-	color_feature.Kar = 0.05;
+	color_feature.Kar = 0.05;*/
 	extreme_x1 = NOT_LEGAL, extreme_x2 = NOT_LEGAL;
 	extreme_z1 = NOT_LEGAL, extreme_z2 = NOT_LEGAL;
 	for (int i = 0; i < 4; i++)
@@ -209,64 +212,115 @@ bool BeizerBSPTree::intersect(Ray input_ray, vector3<double>& input_point)
 {
 	double intersect_t = std::numeric_limits<double>::max();
 	double t_surface = NOT_LEGAL, theta_surface = NOT_LEGAL;
-	RayTreeIntersect(input_ray, root, intersect_t, t_surface, theta_surface);
-	if (intersect_t < std::numeric_limits<double>::max() && t_surface != NOT_LEGAL && theta_surface != NOT_LEGAL)         //与bounding_box相交
+	if (RayTreeIntersect(input_ray, root, intersect_t, t_surface, theta_surface))
 	{
-		if (NewtonIteration(input_ray, intersect_t, t_surface, theta_surface))
+		last_linet = intersect_t;
+		last_surfacet = t_surface;
+		last_theta = theta_surface;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool BeizerBSPTree::RayTreeIntersect(Ray input_ray, BeizerBSPTree_Node* tree_node, double& t, double& t_surface, double& theta_surface)
+{
+	if (tree_node->left_child == nullptr && tree_node->right_child == nullptr)           //leaf node,回溯point
+	{
+		double temp_tmin, temp_tmax;
+		vector3<double> intersection_point;
+
+		if ((tree_node->boundingbox).intersect(input_ray, intersection_point, temp_tmin, temp_tmax))
 		{
-			input_point = input_ray.start_point + input_ray.direction * intersect_t;
-			last_linet = intersect_t;
-			last_surfacet = t_surface;
-			last_theta = theta_surface;
-			return true;
+			double temp_t;
+			if (temp_tmin > -1 * limit_zero)
+			{
+				temp_t = temp_tmin;
+			}
+			else if (temp_tmax > -1 * limit_zero)
+			{
+				temp_t = temp_tmax;
+			}
+			else
+			{
+				return false;            //不相交
+			}
+			if (NewtonIteration(input_ray, temp_t, tree_node->t, tree_node->theta))
+			{
+				if (fabs(temp_t) < min_distance)
+				{
+					return false;
+				}
+				else
+				{
+					t = temp_t;
+					t_surface = tree_node->t;
+					theta_surface = tree_node->theta;
+					return true;
+				}
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
 			return false;
 		}
 	}
-	else              //与bounding_box不相交
-	{
-		return false;
-	}
-}
-
-void BeizerBSPTree::RayTreeIntersect(Ray input_ray, BeizerBSPTree_Node* tree_node, double& t, double& t_surface, double& theta_surface)
-{
-	if (tree_node->left_child == nullptr && tree_node->right_child == nullptr)           //leaf node,回溯point
-	{
-		double temp_tmin, temp_tmax;
-		vector3<double> intersection_point;
-		(tree_node->boundingbox).intersect(input_ray, intersection_point, temp_tmin, temp_tmax);
-		if (temp_tmin > -1 * limit_zero)
-		{
-			if (temp_tmin < t)
-			{
-				t = temp_tmin;
-				t_surface = tree_node->t;
-				theta_surface = tree_node->theta;
-			}
-		}
-		else if (temp_tmax > -1 * limit_zero)
-		{
-			if (temp_tmax < t)
-			{
-				t = temp_tmax;
-				t_surface = tree_node->t;
-				theta_surface = tree_node->theta;
-			}
-		}
-		return;
-	}
 	assert(tree_node->left_child != nullptr && tree_node->right_child != nullptr);
 	vector3<double> intersect_point;
-	if ((tree_node->left_child->boundingbox).intersect(input_ray, intersect_point))
+	double t1, t2, t3, t4;
+	bool flag_1, flag_2;
+	flag_1 = (tree_node->left_child->boundingbox).intersect(input_ray, intersect_point, t1, t2);
+	flag_2 = (tree_node->right_child->boundingbox).intersect(input_ray, intersect_point, t3, t4);
+	if (flag_1 && flag_2)      //若和两个包围盒都相交
 	{
-		RayTreeIntersect(input_ray, tree_node->left_child, t, t_surface, theta_surface);
+		assert(t2 > -1 * limit_zero && t4 > -1 * limit_zero);
+		if (t1 < -1 * limit_zero)     //点在包围盒内部
+		{
+			t1 = 0;
+		}
+		if (t3 < -1 * limit_zero)
+		{
+			t3 = 0;
+		}
+		if (t1 <= t3)        //优先访问近的
+		{
+			if (RayTreeIntersect(input_ray, tree_node->left_child, t, t_surface, theta_surface))
+			{
+				return true;
+			}
+			else
+			{
+				return RayTreeIntersect(input_ray, tree_node->right_child, t, t_surface, theta_surface);
+			}
+		}
+		else
+		{
+			if (RayTreeIntersect(input_ray, tree_node->right_child, t, t_surface, theta_surface))
+			{
+				return true;
+			}
+			else
+			{
+				return RayTreeIntersect(input_ray, tree_node->left_child, t, t_surface, theta_surface);
+			}
+		}
 	}
-	if ((tree_node->right_child->boundingbox).intersect(input_ray, intersect_point))
+	else if (!flag_1 && flag_2)
 	{
-		RayTreeIntersect(input_ray, tree_node->right_child, t, t_surface, theta_surface);
+		return RayTreeIntersect(input_ray, tree_node->right_child, t, t_surface, theta_surface);
+	}
+	else if (flag_1 && !flag_2)
+	{
+		return RayTreeIntersect(input_ray, tree_node->left_child, t, t_surface, theta_surface);
+	}
+	else
+	{
+		return false;
 	}
 }
 

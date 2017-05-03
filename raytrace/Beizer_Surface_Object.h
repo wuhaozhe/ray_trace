@@ -12,6 +12,7 @@ private:
 	void init();
 	Beizer_Surface beizer_surface;
 	BoundingBox* box;           //当前Beizer曲面的包围盒
+	int last_index;
 	map<vector3<double>, int> point_index_map;             //存储点对应的三角面片的索引
 public:
 	BSPTree Tree;
