@@ -13,9 +13,11 @@ void BeizerBSPTree::init()
 BeizerBSPTree::BeizerBSPTree(vector3<double> point_array[])
 {
 	init();
+	//reflect_coefficient = 0.2;
+	//reflective = true;
 	refractive = true;
 	refract_coefficient = 0.99;
-	n = 1.1;
+	n = 1.05;
 	/*color_feature.Kdg = 0.3;
 	color_feature.Ksg = 0.65;
 	color_feature.Kag = 0.05;
@@ -217,6 +219,8 @@ bool BeizerBSPTree::intersect(Ray input_ray, vector3<double>& input_point)
 		last_linet = intersect_t;
 		last_surfacet = t_surface;
 		last_theta = theta_surface;
+		input_point = input_ray.start_point + input_ray.direction * intersect_t;
+		return true;
 	}
 	else
 	{
@@ -257,6 +261,8 @@ bool BeizerBSPTree::RayTreeIntersect(Ray input_ray, BeizerBSPTree_Node* tree_nod
 					t = temp_t;
 					t_surface = tree_node->t;
 					theta_surface = tree_node->theta;
+					//cout << "t " << t << " surface_t " << t_surface << " theta " << theta_surface * 180 / PI << endl;
+					//cout << input_ray.start_point + input_ray.direction * t << " "<<input_ray.start_point<<" "<<input_ray.direction<< endl;
 					return true;
 				}
 			}
@@ -350,6 +356,10 @@ bool BeizerBSPTree::NewtonIteration(Ray input_ray, double& line_t, double& surfa
 	}
 	else
 	{
+		if (surface_t < -1 * limit_zero || surface_t > 1 + limit_zero)
+		{
+			return false;
+		}
 		return true;
 	}
 }

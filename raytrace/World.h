@@ -16,7 +16,7 @@ private:
 	Color intersect_color(int n, Ray current_ray, stack<int> &refract_stack);                 //n代表递归深度，current_ray代表对其追踪的光线
 	double current_n;                     //当前的折射率
 public:
-	const int recursive_depth = 6;                          //光线追踪的递归深度
+	const int recursive_depth = 5;                          //光线追踪的递归深度
 	Light light;
 	Camera camera;
 	void add_object(Object* input_obj);
