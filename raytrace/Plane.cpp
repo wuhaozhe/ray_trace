@@ -44,7 +44,7 @@ bool Plane::intersect(Ray input_ray, vector3<double> &intersect_point)
 	else
 	{
 		double t = (-1 * numerator) / denominator;
-		if (t < 0)
+		if (t < limit_zero)
 		{
 			return false;
 		}

@@ -1,0 +1,15 @@
+﻿  Sphere.cpp
+  World.cpp
+World.cpp(57): warning C4018: “<”: 有符号/无符号不匹配
+World.cpp(75): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
+World.cpp(76): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
+World.cpp(77): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
+World.cpp(197): warning C4018: “<”: 有符号/无符号不匹配
+World.cpp(198): warning C4018: “<”: 有符号/无符号不匹配
+  正在生成代码
+  4 of 751 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Release\raytrace.exe
+  raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Release\raytrace.pdb (Full PDB)

@@ -17,7 +17,10 @@ Sphere::Sphere(vector3<double> input_center, double input_radius): sphere_center
 	init();
 	square_radius = radius * radius;
 	refractive = true;
-	refract_coefficient = 0.99;
+	color_feature.Kab = 0.4;
+	color_feature.Kdb = 0.3;
+	color_feature.Ksb = 0.3;
+	refract_coefficient = 0.7;
 	reflect_coefficient = 0.99;
 	n = 1.5;
 }

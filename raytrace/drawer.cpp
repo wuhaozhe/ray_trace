@@ -1,5 +1,6 @@
 #include "drawer.h"
 #include <assert.h>
+#include <algorithm>
 drawer* drawer::instance = new drawer();      //对静态成员实例化
 drawer::drawer()
 {
@@ -14,10 +15,10 @@ void drawer::set_pixel(unsigned x, unsigned y, Color color)
 {
 	assert(x < width && y < height);
 	y = height - 1 - y;               //将坐标轴上下颠倒
-	image[4 * width * y + 4 * x + 0] = color.r;
-	image[4 * width * y + 4 * x + 1] = color.g;
-	image[4 * width * y + 4 * x + 2] = color.b;
-	image[4 * width * y + 4 * x + 3] = color.a;
+	image[4 * width * y + 4 * x + 0] = std::min(color.r, (unsigned char)255);
+	image[4 * width * y + 4 * x + 1] = std::min(color.g, (unsigned char)255);
+	image[4 * width * y + 4 * x + 2] = std::min(color.b, (unsigned char)255);
+	image[4 * width * y + 4 * x + 3] = std::min(color.a, (unsigned char)255);
 }
 void drawer::set_pixel(Point point, Color color)
 {

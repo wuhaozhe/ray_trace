@@ -1,6 +1,7 @@
 #ifndef DRAWER_H
 #define DRAWER_H
 #include <iostream>
+#include <algorithm>
 #include "lodepng.h"
 using namespace std;
 struct Color         //Pixel的组成r, g, b, a
@@ -21,18 +22,18 @@ struct Color         //Pixel的组成r, g, b, a
 	Color operator*(const double &a)
 	{
 		Color temp;
-		temp.r = (unsigned char)(a * (double)r);
-		temp.g = (unsigned char)(a * (double)g);
-		temp.b = (unsigned char)(a * (double)b);
+		temp.r = (unsigned char)(min(a * (double)r, 255.0));
+		temp.g = (unsigned char)(min(a * (double)g, 255.0));
+		temp.b = (unsigned char)(min(a * (double)b, 255.0));
 		temp.a = 255;
 		return temp;
 	}
 	Color operator+(const Color &a)
 	{
 		Color temp;
-		temp.r = a.r + r;
-		temp.g = a.g + g;
-		temp.b = a.b + b;
+		temp.r = (unsigned char)min((short)a.r + (short)r, 255);
+		temp.g = (unsigned char)min((short)a.g + (short)g, 255);
+		temp.b = (unsigned char)min((short)a.b + (short)b, 255);
 		temp.a = 255;
 		return temp;
 	}

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <assert.h>
 #include <iostream>
-#define limit_zero 0.000000001                   //double < limit_zeor , it's 0
+#define limit_zero 0.00000001                   //double < limit_zeor , it's 0
 
 template<typename T>
 class vector2

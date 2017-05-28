@@ -1,6 +1,7 @@
 #include "PhongModel.h"
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 int PhongModel::reflect_parameter = 10;
 PhongModel::PhongModel()
@@ -40,5 +41,8 @@ Color PhongModel::reflect_color(Single_Light light, vector3<double> normal_vecto
 	b += light.intensity * light.color.b * feature.Kab;
 	//cout << r << " " << g << " " << b << endl;
 	//cout << R_V_dot << " " << L_N_dot << endl;
+	r = min(r, 255.0);
+	g = min(g, 255.0);
+	b = min(b, 255.0);
 	return Color((unsigned char)r, (unsigned char)g, (unsigned char)b, 255);
 }

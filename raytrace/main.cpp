@@ -14,71 +14,39 @@ using namespace std;
 
 int main()
 {
-	/*World world;
-	vector3<double> point_array[9];
-	point_array[0] = vector3<double>(0, 0, -1);
-	point_array[1] = vector3<double>(0, 2, 1);
-	point_array[2] = vector3<double>(0, 4, 3);
-	point_array[3] = vector3<double>(2, 0, 3.5);
-	point_array[4] = vector3<double>(2, 2, 1.5);
-	point_array[5] = vector3<double>(2, 4, 0);
-	point_array[6] = vector3<double>(4, 0, 0);
-	point_array[7] = vector3<double>(4, 2, 2);
-	point_array[8] = vector3<double>(4, 4, 4);
-	Beizer_Surface_Object* beizer = new Beizer_Surface_Object(3, 3, point_array);
-	//cout << "haha" << endl;
-	Object* plane = new Plane(vector3<double>(0, 0, -1), vector3<double>(0, 0, 1));
-	world.add_object(beizer);
-	world.add_object(plane);
-	world.ray_trace();
-	(drawer::get_instance())->output_image();*/
-	/*Ray temp_ray(vector3<double>(1.87248, 2.625, -1), vector3<double>(-0.465974, -0.0281778, 0.88435));
-	vector3<double> intercept_point;
-	if (beizer->intersect(temp_ray, intercept_point))
-	{
-		cout << "intercept" << endl;
-	}
-	else
-	{
-		cout << "no intercept" << endl;
-	}
-	for (int i = 0; i < (beizer->Tree).objects.size(); i++)
-	{
-		if (((beizer->Tree).objects[i])->intersect(temp_ray, intercept_point))
-		{
-			cout << "intercept" << endl;
-			cout << i << endl;
-			Triangle* current_triangle = (Triangle*)(beizer->Tree).objects[i];
-			cout << current_triangle->vertex[0] << " " << current_triangle->vertex[1] << " " << current_triangle->vertex[2] << endl;
-		}
-	}*/
 	World world;
-	vector3<double> point_array2[4];
-	point_array2[0] = vector3<double>(0, 0, 0.1);
-	point_array2[1] = vector3<double>(2, 0, 1.1);
-	point_array2[2] = vector3<double>(3, 0, 2.1);
-	point_array2[3] = vector3<double>(4, 0, 10);
-	Object* beizer_bsp = new BeizerBSPTree(point_array2);
-	/*Ray temp_ray(vector3<double>(-20, 0, 5), vector3<double>(0.988139, 0.143782, -0.0539182));
-	vector3<double> intersect_point;
-	if (beizer_bsp->intersect(temp_ray, intersect_point))
-	{
-		cout << "intersect " << intersect_point << endl;
-	}
-	else
-	{
-		cout << "not" << endl;
-	}*/
-	world.add_object(beizer_bsp);
-	Object* plane = new Plane(vector3<double>(0, 0, -1), vector3<double>(0, 0, 1));
-	world.add_object(plane);
+	Object* floor = new Plane(vector3<double>(0, 0, -10), vector3<double>(0, 0, 1));
+	floor->reflective = true;
+	floor->reflect_coefficient = 0.2;
+	floor->color_feature.Kab = 0.3, floor->color_feature.Kdb = 0.4; floor->color_feature.Ksb = 0.3;
+	floor->color_feature.Kar = 0.3, floor->color_feature.Kdr = 0.4; floor->color_feature.Ksr = 0.3;
+	world.add_object(floor);
+	Object* ceiling = new Plane(vector3<double>(0, 0, 10), vector3<double>(0, 0, -1));
+	ceiling->reflective = true;
+	ceiling->reflect_coefficient = 0.2;
+	ceiling->color_feature.Kab = 0.3, ceiling->color_feature.Kdb = 0.4; ceiling->color_feature.Ksb = 0.3;
+	ceiling->color_feature.Kar = 0.3, ceiling->color_feature.Kdr = 0.4; ceiling->color_feature.Ksr = 0.3;
+	world.add_object(ceiling);
+	Object* forwardwall = new Plane(vector3<double>(10, 0, 0), vector3<double>(-1, 0, 0));
+	forwardwall->color_feature.Kar = 0.3, forwardwall->color_feature.Kdr = 0.4; forwardwall->color_feature.Ksr = 0.3;
+	world.add_object(forwardwall);
+	Object* backwall = new Plane(vector3<double>(-10, 0, 0), vector3<double>(1, 0, 0));
+	world.add_object(backwall);
+	Object* leftwall = new Plane(vector3<double>(0, -10, 0), vector3<double>(0, 1, 0));
+	world.add_object(leftwall);
+	Object* rightwall = new Plane(vector3<double>(0, 10, 0), vector3<double>(0, -1, 0));
+	world.add_object(rightwall);
+	Object* ball = new Sphere(vector3<double>(5, 6.5, -2), 1.5);
+	world.add_object(ball);
+	//生成一个Beizer曲面
+	vector3<double> control_array[4];
+	control_array[0] = vector3<double>(2, 0, -1);
+	control_array[1] = vector3<double>(1, 0, 0);
+	control_array[2] = vector3<double>(0.5, 0, 1);
+	control_array[3] = vector3<double>(1, 0, 2);
+	Object* beizer_obj = new BeizerBSPTree(control_array);
+	world.add_object(beizer_obj);
 	world.ray_trace();
 	(drawer::get_instance())->output_image();
-	Beizer_rotate rotate;
-	for (int i = 0; i < 4; i++)
-	{
-		rotate.add_control_point(point_array2[i]);
-	}
-	rotate.output_obj();
 	return 0;
 }

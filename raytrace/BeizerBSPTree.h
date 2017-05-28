@@ -53,7 +53,7 @@ public:
 	const int divide = 512;           //根据参数将beizer曲线（以及旋转）划分为多少块
 	const int iteration_times = 5;   //牛顿迭代的迭代次数
 	const double min_distance = 0.1;        //上一个交点与下一个交点的最短距离
-	BeizerBSPTree(vector3<double> point_array[]);        //要在BeizerBSPTree中初始化一个Beizer_Line（默认为3次Beizer曲线）
+	BeizerBSPTree(vector3<double> point_array[]);        //要在BeizerBSPTree中初始化一个Beizer_Line（默认为3次Beizer曲线）,控制点为x_z平面上的点
 	bool intersect(Ray input_ray, vector3<double>& input_point);
 	Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in);
 	~BeizerBSPTree();
