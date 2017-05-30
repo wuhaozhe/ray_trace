@@ -9,11 +9,11 @@ using namespace std;
 class kd_node
 {
 public:
-	photon current_photon;      //当前节点所存储的光子
 	double position[3];         //当前点的位置
 	int axis;              //当前节点划分的轴
 	kd_node* left_child;
 	kd_node* right_child;
+	photon current_photon;      //当前节点所存储的光子
 	bool is_leaf()
 	{
 		return left_child == nullptr && right_child == nullptr;
@@ -86,7 +86,7 @@ private:
 	void nearest(kd_node* current, double* target, k_collection& collection);
 	double distance(double* a, double* b);
 public:
-	const int k_size = 15;            //KNN算法中k的取值
+	const int k_size = 500;            //KNN算法中k的取值
 	kdTree(vector<photon>& photon_array);
 	k_collection knn(vector3<double> target);         //寻找k个近邻
 	~kdTree();

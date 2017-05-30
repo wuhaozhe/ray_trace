@@ -88,6 +88,7 @@ kd_node* kdTree::build_kdTree(vector<photon> photon_array, int depth)
 	{
 		right_photon_array.push_back(photon_array[i]);
 	}
+	photon_array.clear();
 	if (left_photon_array.size() > 0)
 	{
 		current_node->left_child = build_kdTree(left_photon_array, depth + 1);
@@ -121,7 +122,7 @@ double kdTree::distance(double* a, double* b)
 	{
 		value += (a[i] - b[i]) * (a[i] - b[i]);
 	}
-	return value;
+	return sqrt(value);
 }
 void kdTree::nearest(kd_node* current, double* target, k_collection& collection)
 {

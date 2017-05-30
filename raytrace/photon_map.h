@@ -24,7 +24,8 @@ private:
 	kdTree* Tree;
 public:
 	vector<photon> photon_array;              //存储所有的光子
-	const int recursive_depth = 5;             //发射光子时的递归深度
+	const int recursive_depth = 10;             //发射光子时的递归深度
+	const double BRDF_ratio = 0.0007;
 	static photon_map* get_instance()
 	{
 		if (instance == nullptr)

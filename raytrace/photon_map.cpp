@@ -111,10 +111,10 @@ void photon_map::generate_photon()
 				double phi = (rand() / (double)(RAND_MAX)) * 2 * PI;
 				double z = cos_theta, x = sin(theta) * cos(phi), y = sin(theta) * sin(phi);
 				vector3<double> reflect_direction = (temp_normalvec * z + base1 * x + base2 * y).normallize();
-				start_photon.photon_ray.direction = reflect_direction;
 				start_photon.photon_ray.start_point = temp_point;
 				change_color(start_photon, temp_feature, true);
-				photon_array.push_back(start_photon);                     //记录下发生漫反射的光子
+				photon_array.push_back(start_photon);                     //记录下发生漫反射的光子,光子方向为反射前的方向！
+				start_photon.photon_ray.direction = reflect_direction;                  //记录后，再将光子的方向改变
 				continue;
 			}
 			roulette -= temp_feature.specular_reflect;
@@ -196,15 +196,20 @@ void photon_map::generate_photon()
 
 void photon_map::generate_photon(int photon_num)
 {
+	/*while (photon_array.size() < photon_num)
+	{
+		generate_photon();
+		if (photon_array.size() % 100000 == 0 && photon_array.size() != 0)
+		{
+			cout << photon_array.size() << endl;
+		}
+	}*/
 	for (int i = 0; i < photon_num; i++)
 	{
 		generate_photon();
 		if (i % 10000 == 0 && i != 0)
 		{
 			cout << i << endl;
-			//cout << "size"<<photon_array.size()<<endl;
-			//cout << photon_array[photon_array.size() - 1].photon_ray.start_point.x << " " << photon_array[photon_array.size() - 1].photon_ray.start_point.y << " " << photon_array[photon_array.size() - 1].photon_ray.start_point.z << endl;
-			//cout << (int)photon_array[photon_array.size() - 1].color.r << " " << (int)photon_array[photon_array.size() - 1].color.g << " " << (int)photon_array[photon_array.size() - 1].color.b << endl;
 		}
 	}
 	Tree = new kdTree(photon_array);
@@ -247,18 +252,28 @@ Color photon_map::get_color(vector3<double> position, vector3<double> input_norm
 	{
 		vector3<double> photon_direction = it->first->current_photon.photon_ray.direction;         //光子出射的方向
 		Color photon_color = it->first->current_photon.color;
-		if (photon_direction * input_normal < 0)       //input_normal方向反了
+		if (photon_direction * input_normal > 0)       //input_normal方向反了
 		{
 			input_normal = input_normal * -1;
 		}
-		double BRDF_ratio = PhongModel::PhongBRDF(input_normal, photon_direction, input_view, pd, ps);        //通过phong模型的brdf返回的
-		r += BRDF_ratio * (double)photon_color.r;
-		g += BRDF_ratio * (double)photon_color.g;
-		b += BRDF_ratio * (double)photon_color.b;
+		//double BRDF_ratio = PhongModel::PhongBRDF(input_normal, photon_direction, input_view, pd, ps);        //通过phong模型的brdf返回的
+		if (input_normal * input_view < 0)
+		{
+			r += (double)photon_color.r;
+			g += (double)photon_color.g;
+			b += (double)photon_color.b;
+		}
 	}
 	double area = PI * collection.max_value * collection.max_value;
+	//cout <<"max_value"<< collection.max_value << endl;
 	r /= area;
 	g /= area;
 	b /= area;
+	r *= BRDF_ratio;
+	g *= BRDF_ratio;
+	b *= BRDF_ratio;
+	r = min(r, 255.0);
+	g = min(g, 255.0);
+	b = min(b, 255.0);
 	return Color(r, g, b, 255);
 }

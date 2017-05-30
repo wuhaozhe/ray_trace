@@ -4,6 +4,7 @@
 #include <algorithm>
 
 int PhongModel::reflect_parameter = 10;
+double PhongModel::amplify_parameter = 1;
 PhongModel::PhongModel()
 {
 }
@@ -50,15 +51,17 @@ Color PhongModel::reflect_color(Single_Light light, vector3<double> normal_vecto
 double PhongModel::PhongBRDF(vector3<double> normal_vector, vector3<double> in_direction, vector3<double> view_direction, double pd, double ps)
 {
 	vector3<double> reverse_view = view_direction * -1;
-	double L_N_dot = in_direction * normal_vector;
-	if (fabs(L_N_dot) < limit_zero)
+	vector3<double> reverse_direction = in_direction * -1;
+	double L_N_dot = reverse_direction * normal_vector;
+	if (L_N_dot < limit_zero)
 	{
 		return 0;
 	}
-	double R_V_dot = in_direction * reverse_view;
-	if (R_V_dot < limit_zero)
+	vector3<double> angle_bisector = (reverse_direction + reverse_view).normallize();             //求角平分线
+	double R_V_dot = angle_bisector * normal_vector;
+	if (R_V_dot < 0)
 	{
-		return 0;
+		R_V_dot = 0;
 	}
-	return pd + ps * pow(R_V_dot, reflect_parameter) / L_N_dot;
+	return (pd + ps * pow(R_V_dot, reflect_parameter) / L_N_dot) * amplify_parameter;
 }
