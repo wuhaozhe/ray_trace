@@ -14,6 +14,7 @@ public:
 	bool intersect(Ray input_ray, vector3<double> &intersect_point, double &in_t_min, double &in_t_max);
 	bool contain(vector3<double> input);
 	Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in);
+	vector3<double> get_normalvec(vector3<double> target_pos, vector3<double> view_direction);                    //获取该点的法向量
 
 	//判断aabb与各种物体是否有重叠
 	static bool sphere_aabb_overlap(vector3<double> sphere_center, double radius, vector3<double> in_min_point, vector3<double> in_max_point);

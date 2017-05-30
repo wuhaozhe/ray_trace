@@ -1,0 +1,15 @@
+﻿  photon_map.cpp
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\photon_map.cpp(263): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
+  main.cpp
+  PhongModel.cpp
+  正在生成代码...
+  正在编译...
+  Triangle.cpp
+  Sphere.cpp
+  Plane.cpp
+  BoundingBox.cpp
+  BeizerBSPTree.cpp
+  正在生成代码...
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\boundingbox.cpp(157): warning C4715: “BoundingBox::get_normalvec”: 不是所有的控件路径都返回值
+  raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\x64\Debug\raytrace.exe
+  raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\x64\Debug\raytrace.pdb (Full PDB)

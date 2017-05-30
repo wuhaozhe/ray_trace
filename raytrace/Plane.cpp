@@ -77,3 +77,8 @@ Color Plane::get_color_normalvec(vector3<double> target_pos, vector3<double> vie
 	in = normal_vector.normallize();
 	return PhongModel::reflect_color(light, normal_vector, view_direction, color_feature);
 }
+
+vector3<double> Plane::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)
+{
+	return normal_vector.normallize();
+}

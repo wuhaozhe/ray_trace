@@ -15,4 +15,5 @@ public:
 	bool intersect(Ray input_ray, vector3<double> &intersect_point);
 	double signed_distance(Ray input_ray);
 	Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in);
+	vector3<double> get_normalvec(vector3<double> target_pos, vector3<double> view_direction);                    //获取该点的法向量
 };

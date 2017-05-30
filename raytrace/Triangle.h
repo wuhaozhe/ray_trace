@@ -23,6 +23,7 @@ public:
 	Triangle(vector3<double> vertex1, vector3<double> vertex2, vector3<double> vertex3);
 	bool intersect(Ray input_ray, vector3<double> &intersect_point);
 	Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in);
+	vector3<double> get_normalvec(vector3<double> target_pos, vector3<double> view_direction);                    //获取该点的法向量
 	~Triangle();
 };
 

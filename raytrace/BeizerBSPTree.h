@@ -56,6 +56,7 @@ public:
 	BeizerBSPTree(vector3<double> point_array[]);        //要在BeizerBSPTree中初始化一个Beizer_Line（默认为3次Beizer曲线）,控制点为x_z平面上的点
 	bool intersect(Ray input_ray, vector3<double>& input_point);
 	Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in);
+	vector3<double> get_normalvec(vector3<double> target_pos, vector3<double> view_direction);                    //获取该点的法向量
 	~BeizerBSPTree();
 };
 

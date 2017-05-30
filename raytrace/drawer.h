@@ -17,7 +17,7 @@ struct Color         //PixelµÄ×é³Ér, g, b, a
 	}
 	Color()
 	{
-		r = 0, g = 0, b = 0, a = 0;
+		r = 0, g = 0, b = 0, a = 255;
 	}
 	Color operator*(const double &a)
 	{

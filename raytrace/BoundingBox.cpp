@@ -124,31 +124,36 @@ bool BoundingBox::intersect(Ray input_ray, vector3<double> &intersect_point)    
 Color BoundingBox::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in)
 {
 	light.direction = (target_pos - light.start_point).normallize();
+	in = get_normalvec(target_pos, view_direction);
+	return PhongModel::reflect_color(light, in, view_direction, color_feature);
+}
+
+vector3<double> BoundingBox::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)
+{
 	if (fabs(target_pos.x - min_point.x) < limit_zero)
 	{
-		in = vector3<double>(-1, 0, 0);
+		return vector3<double>(-1, 0, 0);
 	}
 	else if (fabs(target_pos.x - max_point.x) < limit_zero)
 	{
-		in = vector3<double>(1, 0, 0);
+		return vector3<double>(1, 0, 0);
 	}
 	else if (fabs(target_pos.y - min_point.y) < limit_zero)
 	{
-		in = vector3<double>(0, -1, 0);
+		return vector3<double>(0, -1, 0);
 	}
 	else if (fabs(target_pos.y - max_point.y) < limit_zero)
 	{
-		in = vector3<double>(0, 1, 0);
+		return vector3<double>(0, 1, 0);
 	}
 	else if (fabs(target_pos.z - min_point.z) < limit_zero)
 	{
-		in = vector3<double>(0, 0, 1);
+		return vector3<double>(0, 0, 1);
 	}
 	else if (fabs(target_pos.z - max_point.z) < limit_zero)
 	{
-		in = vector3<double>(0, 0, -1);
+		return vector3<double>(0, 0, -1);
 	}
-	return PhongModel::reflect_color(light, in, view_direction, color_feature);
 }
 
 bool BoundingBox::sphere_aabb_overlap(vector3<double> sphere_center, double radius, vector3<double> in_min_point, vector3<double> in_max_point)

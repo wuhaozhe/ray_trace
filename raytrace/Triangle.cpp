@@ -84,3 +84,8 @@ Color Triangle::get_color_normalvec(vector3<double> target_pos, vector3<double> 
 	in = normal_vector;
 	return PhongModel::reflect_color(light, normal_vector, view_direction, color_feature);
 }
+
+vector3<double> Triangle::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)
+{
+	return normal_vector;
+}

@@ -19,6 +19,7 @@ public:
 	Beizer_Surface_Object(int line, int row, vector3<double> point_array[]);    //a * line + b 为index
 	bool intersect(Ray input_ray, vector3<double> &intersect_point);
 	Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in);   //in为法向量的引用
+	vector3<double> get_normalvec(vector3<double> target_pos, vector3<double> view_direction);                    //获取该点的法向量
 	~Beizer_Surface_Object();
 };
 

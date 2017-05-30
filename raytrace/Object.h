@@ -2,6 +2,7 @@
 #include "Point.h"
 #include "Ray.h"
 #include "drawer.h"
+#include "PhotonModel.h"
 class Object
 {
 protected:
@@ -13,6 +14,7 @@ public:
 	};
 	virtual bool intersect(Ray input_ray, vector3<double> &intersect_point) = 0;             //求交点
 	virtual Color get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in) = 0;                  //根据光照模型获取target_pos上的颜色，view_direction是视点方向,同时获得法向量，最后一个参数为法向量的引用
+	virtual vector3<double> get_normalvec(vector3<double> target_pos, vector3<double> view_direction) = 0;                    //获取该点的法向量
 	Object_type object_type;
 	Object();
 	Material_feature color_feature;
@@ -20,6 +22,7 @@ public:
 	bool reflective, refractive;                  //是否可反射，是否可折射
 	double reflect_coefficient, refract_coefficient;         //反射系数，折射系数
 	double n;                  //折射率
+	object_feature feature;                     //对于一个光子来说object的feature
 	~Object();
 };
 

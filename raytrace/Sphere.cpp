@@ -87,10 +87,11 @@ Color Sphere::get_color_normalvec(vector3<double> target_pos, vector3<double> vi
 {
 	light.direction = (target_pos - light.start_point).normallize();
 	vector3<double> normal_vector = (target_pos - sphere_center).normallize();
-	//cout<<"intersect" << target_pos.x << " "<< target_pos.y << " " << target_pos.z << endl;
-	//cout <<"normal "<< normal_vector.x << " " << normal_vector.y << " " << normal_vector.z << endl;
-	//cout << "light " << light.direction.x << " " << light.direction.y << " " << light.direction.z << endl;
-	//cout << "view " << view_direction.x << " " << view_direction.y << " " << view_direction.z << endl;
 	in = normal_vector;
 	return PhongModel::reflect_color(light, normal_vector, view_direction, color_feature);
+}
+
+vector3<double> Sphere::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)
+{
+	return (target_pos - sphere_center).normallize();
 }

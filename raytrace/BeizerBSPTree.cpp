@@ -367,6 +367,16 @@ bool BeizerBSPTree::NewtonIteration(Ray input_ray, double& line_t, double& surfa
 Color BeizerBSPTree::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in)
 {
 	light.direction = (target_pos - light.start_point).normallize();
+	in = get_normalvec(target_pos, view_direction);
+	if (in * light.direction > 0)
+	{
+		in = in * -1;
+	}
+	return PhongModel::reflect_color(light, in, view_direction, color_feature);
+}
+
+vector3<double> BeizerBSPTree::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)
+{
 	vector3<double> p_partial_t = beizer_line.Beizer_Derivative(last_surfacet);
 	vector3<double> beizer_point = beizer_line.get_point(last_surfacet);
 	double x_partial_t = p_partial_t.x * cos(last_theta);
@@ -378,10 +388,5 @@ Color BeizerBSPTree::get_color_normalvec(vector3<double> target_pos, vector3<dou
 	double A = y_partial_t * z_partial_theta - y_partial_theta * z_partial_t;
 	double B = z_partial_t * x_partial_theta - z_partial_theta * x_partial_t;
 	double C = x_partial_t * y_partial_theta - x_partial_theta * y_partial_t;
-	in = vector3<double>(A, B, C).normallize();
-	if (in * light.direction > 0)
-	{
-		in = in * -1;
-	}
-	return PhongModel::reflect_color(light, in, view_direction, color_feature);
+	return vector3<double>(A, B, C).normallize();
 }

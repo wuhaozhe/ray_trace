@@ -1,4 +1,17 @@
-﻿  Sphere.cpp
+﻿  BSPTree.cpp
+BSPTree.cpp(22): warning C4018: “<”: 有符号/无符号不匹配
+BSPTree.cpp(31): warning C4018: “<=”: 有符号/无符号不匹配
+BSPTree.cpp(59): warning C4018: “<”: 有符号/无符号不匹配
+BSPTree.cpp(143): warning C4018: “<”: 有符号/无符号不匹配
+  BeizerBSPTree.cpp
+  Beizer_Surface_Object.cpp
+Beizer_Surface_Object.cpp(56): warning C4018: “<”: 有符号/无符号不匹配
+  BoundingBox.cpp
+  Object.cpp
+  PhotonModel.cpp
+  Plane.cpp
+  Sphere.cpp
+  Triangle.cpp
   World.cpp
 World.cpp(57): warning C4018: “<”: 有符号/无符号不匹配
 World.cpp(75): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
@@ -6,10 +19,12 @@ World.cpp(76): warning C4244: “*=”: 从“double”转换到“unsigned char
 World.cpp(77): warning C4244: “*=”: 从“double”转换到“unsigned char”，可能丢失数据
 World.cpp(197): warning C4018: “<”: 有符号/无符号不匹配
 World.cpp(198): warning C4018: “<”: 有符号/无符号不匹配
+  main.cpp
+  photon_map.cpp
   正在生成代码
-  4 of 751 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+  308 of 632 functions (48.7%) were compiled, the rest were copied from previous compilation.
+    73 functions were new in current compilation
+    52 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Release\raytrace.exe
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\Release\raytrace.pdb (Full PDB)

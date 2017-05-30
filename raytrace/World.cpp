@@ -32,7 +32,7 @@ bool World::intersect_point(Ray current_ray, int &object_index, vector3<double> 
 		vector3<double> intersect_Point;
 		if (objects[i]->intersect(current_ray, intersect_Point))
 		{
-			double length = (intersect_Point - camera.position).length;
+			double length = (intersect_Point - current_ray.start_point).length;
 			if (length < distance)
 			{
 				distance = length;

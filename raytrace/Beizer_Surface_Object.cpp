@@ -97,3 +97,8 @@ Color Beizer_Surface_Object::get_color_normalvec(vector3<double> target_pos, vec
 {
 	return Tree.objects[last_index]->get_color_normalvec(target_pos, view_direction, light, in);
 }
+
+vector3<double> Beizer_Surface_Object::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)
+{
+	return Tree.objects[last_index]->get_normalvec(target_pos, view_direction);
+}

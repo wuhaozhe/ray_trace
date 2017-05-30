@@ -21,7 +21,7 @@ Color PhongModel::reflect_color(Single_Light light, vector3<double> normal_vecto
 	vector3<double> reverse_light = light.direction * -1;
 	vector3<double> reverse_view = view_direction * -1;
 	double L_N_dot = reverse_light * normal_vector;
-	if (L_N_dot < 0)
+	if (L_N_dot < limit_zero)
 		L_N_dot = 0;
 	//cout << "veiw" << view_direction.x << " " << view_direction.y << view_direction.z << endl;
 	//cout << reverse_view.x << " " << reverse_view.y << " " << reverse_view.z << endl;
@@ -45,4 +45,20 @@ Color PhongModel::reflect_color(Single_Light light, vector3<double> normal_vecto
 	g = min(g, 255.0);
 	b = min(b, 255.0);
 	return Color((unsigned char)r, (unsigned char)g, (unsigned char)b, 255);
+}
+
+double PhongModel::PhongBRDF(vector3<double> normal_vector, vector3<double> in_direction, vector3<double> view_direction, double pd, double ps)
+{
+	vector3<double> reverse_view = view_direction * -1;
+	double L_N_dot = in_direction * normal_vector;
+	if (fabs(L_N_dot) < limit_zero)
+	{
+		return 0;
+	}
+	double R_V_dot = in_direction * reverse_view;
+	if (R_V_dot < limit_zero)
+	{
+		return 0;
+	}
+	return pd + ps * pow(R_V_dot, reflect_parameter) / L_N_dot;
 }

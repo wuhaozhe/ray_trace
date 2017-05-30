@@ -90,6 +90,15 @@
     <ClCompile Include="BeizerBSPTree.cpp">
       <Filter>源文件\Object</Filter>
     </ClCompile>
+    <ClCompile Include="photon_map.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PhotonModel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kdTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drawer.h">
@@ -151,6 +160,18 @@
     </ClInclude>
     <ClInclude Include="BeizerBSPTree.h">
       <Filter>头文件\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="photon_map.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PhotonModel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kdTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="photon.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
