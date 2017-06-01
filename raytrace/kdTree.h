@@ -14,10 +14,6 @@ public:
 	kd_node* left_child;
 	kd_node* right_child;
 	photon current_photon;      //当前节点所存储的光子
-	bool is_leaf()
-	{
-		return left_child == nullptr && right_child == nullptr;
-	}
 	kd_node(photon input_photon): current_photon(input_photon), left_child(nullptr), right_child(nullptr), axis(0)
 	{
 		position[0] = current_photon.photon_ray.start_point.x;
@@ -76,18 +72,21 @@ public:
 	}
 };
 double getvalue(photon input, int dimension);
-void quickSelect(vector<photon>& photon_array, int k, int dimension);             //找第k大的点
+bool compare_x(photon a, photon b);
+bool compare_y(photon a, photon b);
+bool compare_z(photon a, photon b);
+//void quickSelect(vector<photon>& photon_array, int k, int dimension, int low, int high);             //找第k大的点,low代表数组的左侧索引，high代表右侧（左开右闭）
 class kdTree
 {
 private:
 	kd_node* root;
-	kd_node* build_kdTree(vector<photon> photon_array, int depth);
+	kd_node* build_kdTree(vector<photon>& photon_array, int depth, int left_bound, int right_bound);             //左开右闭区间
 	kd_node* create_leaf(photon input_photon);
 	void nearest(kd_node* current, double* target, k_collection& collection);
 	double distance(double* a, double* b);
 public:
 	const int k_size = 500;            //KNN算法中k的取值
-	kdTree(vector<photon>& photon_array);
+	kdTree(vector<photon> photon_array);
 	k_collection knn(vector3<double> target);         //寻找k个近邻
 	~kdTree();
 };

@@ -21,11 +21,11 @@ private:
 	void generate_photon();                 //光源产生单个光子，随后该光子不断弹射直到被吸收或者到达递归上限
 	bool intersect_point(Ray input_ray, int &object_index, vector3<double> &point);            //求取距离input_ray最近的交点 
 	void change_color(photon& input_photon, object_feature input_feature, bool reflect_flag);                     //对光子做色光变化, 若reflect_flag为true，做反射的色光变化，否则为折射的色光变化
-	kdTree* Tree;
 public:
+	kdTree* Tree;
 	vector<photon> photon_array;              //存储所有的光子
 	const int recursive_depth = 10;             //发射光子时的递归深度
-	const double BRDF_ratio = 0.0007;
+	const double BRDF_ratio = 0.0001;
 	static photon_map* get_instance()
 	{
 		if (instance == nullptr)

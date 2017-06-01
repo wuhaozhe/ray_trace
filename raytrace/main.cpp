@@ -59,5 +59,11 @@ int main()
 	world.photon_cast();
 	world.ray_trace();
 	(drawer::get_instance())->output_image();
+	/*k_collection temp = (photon_map::get_instance())->Tree->knn(vector3<double>(0, 0, 0));
+	for (auto it = temp.kdnode_list.begin(); it != temp.kdnode_list.end(); it++)
+	{
+		cout << it->first->current_photon.photon_ray.start_point << endl;
+		cout << it->second << endl;
+	}*/
 	return 0;
 }

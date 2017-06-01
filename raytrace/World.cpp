@@ -215,7 +215,7 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 void World::photon_cast()
 {
 	(photon_map::get_instance())->init_photon_map(objects, light.each_light[0].start_point, Color(255, 255, 255, 255));
-	(photon_map::get_instance())->generate_photon(3000000);
+	(photon_map::get_instance())->generate_photon(10000000);
 }
 
 Color World::ray_trace(int i, int j)

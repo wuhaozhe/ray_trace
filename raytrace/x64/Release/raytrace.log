@@ -3,10 +3,13 @@
 World.cpp(237): warning C4018: “<”: 有符号/无符号不匹配
 World.cpp(240): warning C4018: “<”: 有符号/无符号不匹配
   main.cpp
+  photon_map.cpp
+photon_map.cpp(260): warning C4244: “参数”: 从“double”转换到“unsigned char”，可能丢失数据
   正在生成代码
-  61 of 1027 functions ( 5.9%) were compiled, the rest were copied from previous compilation.
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\boundingbox.cpp(154): warning C4715: “BoundingBox::get_normalvec”: 不是所有的控件路径都返回值
+  61 of 1046 functions ( 5.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    14 functions had inline decision re-evaluated but remain unchanged
+    9 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\x64\Release\raytrace.exe
   raytrace.vcxproj -> E:\大二下\图形学\第一次大作业\raytrace\x64\Release\raytrace.pdb (Full PDB)

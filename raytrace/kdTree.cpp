@@ -1,4 +1,5 @@
 #include "kdTree.h"
+#include <algorithm>
 
 double getvalue(photon input, int dimension)
 {
@@ -16,9 +17,12 @@ double getvalue(photon input, int dimension)
 	}
 }
 
-void quickSelect(vector<photon>& photon_array, int k, int dimension)
+bool compare_x(photon a, photon b) { return a.photon_ray.start_point.x < b.photon_ray.start_point.x; }
+bool compare_y(photon a, photon b) { return a.photon_ray.start_point.y < b.photon_ray.start_point.y; }
+bool compare_z(photon a, photon b) { return a.photon_ray.start_point.z < b.photon_ray.start_point.z; }
+/*void quickSelect(vector<photon>& photon_array, int k, int dimension, int low, int high)
 {
-	for (int lo = 0, hi = photon_array.size() - 1; lo < hi; )
+	for (int lo = low, hi = high - 1; lo < hi; )
 	{
 		int i = lo, j = hi;
 		photon pivot = photon_array[lo];
@@ -46,11 +50,11 @@ void quickSelect(vector<photon>& photon_array, int k, int dimension)
 			lo = i + 1;
 		}
 	}
-}
+}*/
 
-kdTree::kdTree(vector<photon>& photon_array)
+kdTree::kdTree(vector<photon> photon_array)
 {
-	root = build_kdTree(photon_array, 0);
+	root = build_kdTree(photon_array, 0, 0, photon_array.size());
 }
 
 
@@ -58,45 +62,33 @@ kdTree::~kdTree()
 {
 }
 
-kd_node* kdTree::build_kdTree(vector<photon> photon_array, int depth)
+kd_node* kdTree::build_kdTree(vector<photon>& photon_array, int depth, int left_bound, int right_bound)
 {
-	if (photon_array.size() == 1)
+	if (right_bound == left_bound + 1)
 	{
-		return create_leaf(photon_array[0]);
+		return create_leaf(photon_array[left_bound]);
+	}
+	else if (right_bound <= left_bound)
+	{
+		return nullptr;
 	}
 	int split_direction = depth % 3;
-	/*cout << "begin" << endl;
-	for (int i = 0; i < photon_array.size(); i++)
+	if (split_direction == 0)
 	{
-		cout << photon_array[i].photon_ray.start_point << endl;
-	}*/
-	quickSelect(photon_array, photon_array.size() / 2, split_direction);
-	/*cout << "axis " << split_direction << endl;
-	for (int i = 0; i < photon_array.size(); i++)
+		std::nth_element(photon_array.begin() + left_bound, photon_array.begin() + (left_bound + right_bound) / 2, photon_array.begin() + right_bound, compare_x);
+	}
+	else if (split_direction == 1)
 	{
-		cout << photon_array[i].photon_ray.start_point << endl;
-	}*/
-	kd_node* current_node = new kd_node(photon_array[photon_array.size() / 2]);
+		std::nth_element(photon_array.begin() + left_bound, photon_array.begin() + (left_bound + right_bound) / 2, photon_array.begin() + right_bound, compare_y);
+	}
+	else
+	{
+		std::nth_element(photon_array.begin() + left_bound, photon_array.begin() + (left_bound + right_bound) / 2, photon_array.begin() + right_bound, compare_z);
+	}
+	kd_node* current_node = new kd_node(photon_array[(left_bound + right_bound) / 2]);
 	current_node->axis = split_direction;
-	vector<photon> left_photon_array;            //左孩子的点集
-	vector<photon> right_photon_array;           //右孩子的点集
-	for (int i = 0; i < photon_array.size() / 2; i++)
-	{
-		left_photon_array.push_back(photon_array[i]);
-	}
-	for (int i = (photon_array.size() / 2) + 1; i < photon_array.size(); i++)
-	{
-		right_photon_array.push_back(photon_array[i]);
-	}
-	photon_array.clear();
-	if (left_photon_array.size() > 0)
-	{
-		current_node->left_child = build_kdTree(left_photon_array, depth + 1);
-	}
-	if (right_photon_array.size() > 0)
-	{
-		current_node->right_child = build_kdTree(right_photon_array, depth + 1);
-	}
+	current_node->left_child = build_kdTree(photon_array, depth + 1, left_bound, (left_bound + right_bound) / 2);
+	current_node->right_child = build_kdTree(photon_array, depth + 1, (left_bound + right_bound) / 2 + 1, right_bound);
 	return current_node;
 }
 
