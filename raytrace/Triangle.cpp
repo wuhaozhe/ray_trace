@@ -26,16 +26,6 @@ Triangle::Triangle(vector3<double> vertex1, vector3<double> vertex2, vector3<dou
 	E1 = vertex[0] - vertex[1];
 	E2 = vertex[0] - vertex[2];
 	normal_vector = (E1.cross_product(E2)).normallize();
-	/*color_feature.Kdb = 0.3;
-	color_feature.Ksb = 0.65;
-	color_feature.Kab = 0.05;*/
-	color_feature.Kdg = 0.3;
-	color_feature.Ksg = 0.65;
-	color_feature.Kag = 0.05;
-	color_feature.Kdr = 0.3;
-	color_feature.Ksr = 0.65;
-	color_feature.Kar = 0.05;
-	reflective = true;
 	reflect_coefficient = 0.7;
 	n = 0;
 }
@@ -82,7 +72,7 @@ Color Triangle::get_color_normalvec(vector3<double> target_pos, vector3<double> 
 		normal_vector = normal_vector * -1;
 	}
 	in = normal_vector;
-	return PhongModel::reflect_color(light, normal_vector, view_direction, color_feature);
+	return PhongModel::reflect_color(light, normal_vector, view_direction, feature);
 }
 
 vector3<double> Triangle::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)

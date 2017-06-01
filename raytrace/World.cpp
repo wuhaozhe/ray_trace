@@ -88,6 +88,30 @@ bool World::intersect_point(Ray current_ray, int &object_index, vector3<double> 
 	return return_color;
 }*/
 
+bool World::intersect_other_objects(vector3<double> point)
+{
+	for (int k = 0; k < light.each_light.size(); k++)
+	{
+		vector3<double> intersect_to_light(light.each_light[k].start_point - point);
+		double distance = intersect_to_light.length;
+		intersect_to_light = intersect_to_light.normallize();
+		Ray to_light_ray(point, intersect_to_light);           //交点到光源的射线
+		for (unsigned int i = 0; i < objects.size(); i++)
+		{
+			vector3<double> intersect_point;
+			if (objects[i]->intersect(to_light_ray, intersect_point))
+			{
+				vector3<double> to_object = light.each_light[k].start_point - intersect_point;       //to object表示与intersect_to_light同向的由灯到物体的向量
+				if (to_object.length < distance && intersect_to_light * to_object > limit_zero)
+				{
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack)           //在refract_stack中，-1表示没有在任何物体内，折射率为1
 {
 	if (n >= recursive_depth)
@@ -160,11 +184,25 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 			}
 		}
 		if(objects[object_index]->feature.diffuse_reflect > limit_zero)
-		{
-			return_color = ((photon_map::get_instance())->get_color(_intersect_point, normal_vector, current_ray.direction,
-				objects[object_index]->feature.diffuse_reflect, objects[object_index]->feature.specular_reflect)) + return_color;
+		{                //phong模型的颜色加上光子图的颜色以降低高频噪声
+			if (intersect_other_objects(_intersect_point))
+			{
+				return_color = ((photon_map::get_instance())->get_color(_intersect_point, normal_vector, current_ray.direction,
+					objects[object_index]->feature.diffuse_reflect, objects[object_index]->feature.specular_reflect)) + return_color;
+			}
+			else
+			{
+				Color phong_color(0, 0, 0, 255);            //得到Phong模型返回的颜色
+				for (int k = 0; k < light.each_light.size(); k++)
+				{
+					vector3<double> useless;        //这一变量无用，为了填充参数
+					phong_color = objects[object_index]->get_color_normalvec(_intersect_point, current_ray.direction, light.each_light[k], useless) + phong_color;
+				}
+				return_color = ((photon_map::get_instance())->get_color(_intersect_point, normal_vector, current_ray.direction,
+					objects[object_index]->feature.diffuse_reflect, objects[object_index]->feature.specular_reflect)) * photon_weight + 
+					phong_color * (1 - photon_weight) + return_color;
+			}
 		}
-		//cout <<"depth "<<n<<" "<< (int)return_color.r << " " << (int)return_color.g << " " << (int)return_color.b << endl;
 		return return_color;
 	}
 	else

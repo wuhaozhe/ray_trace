@@ -38,33 +38,15 @@ void photon_map::change_color(photon& input_photon, object_feature input_feature
 {
 	if (reflect_flag)
 	{
-		if (!input_feature.reflect_blue)
-		{
-			input_photon.color.b = (unsigned char)0;
-		}
-		if (!input_feature.reflect_green)
-		{
-			input_photon.color.g = (unsigned char)0;
-		}
-		if (!input_feature.reflect_red)
-		{
-			input_photon.color.r = (unsigned char)0;
-		}
+		input_photon.color.b = (unsigned char)(input_feature.reflect_blue * (double)input_photon.color.b);
+		input_photon.color.g = (unsigned char)(input_feature.reflect_green * (double)input_photon.color.g);
+		input_photon.color.r = (unsigned char)(input_feature.reflect_red * (double)input_photon.color.r);
 	}
 	else
 	{
-		if (!input_feature.refract_blue)
-		{
-			input_photon.color.b = (unsigned char)0;
-		}
-		if (!input_feature.refract_green)
-		{
-			input_photon.color.g = (unsigned char)0;
-		}
-		if (!input_feature.refract_red)
-		{
-			input_photon.color.r = (unsigned char)0;
-		}
+		input_photon.color.b = (unsigned char)(input_feature.refract_blue * (double)input_photon.color.b);
+		input_photon.color.g = (unsigned char)(input_feature.refract_green * (double)input_photon.color.g);
+		input_photon.color.r = (unsigned char)(input_feature.refract_red * (double)input_photon.color.r);
 	}
 }
 

@@ -12,9 +12,6 @@ void Beizer_Surface_Object::init()
 Beizer_Surface_Object::Beizer_Surface_Object(int line, int row, vector3<double> point_array[]): beizer_surface(line, row)
 {
 	init();
-	color_feature.Kdr = 0.3;
-	color_feature.Ksr = 0.65;
-	color_feature.Kar = 0.05;
 	double min_x = 100000, min_y = 100000, min_z = 100000;
 	double max_x = -100000, max_y = -100000, max_z = -100000;
 	for(int i = 0; i < line; i++)

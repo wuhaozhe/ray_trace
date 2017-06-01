@@ -18,12 +18,6 @@ BeizerBSPTree::BeizerBSPTree(vector3<double> point_array[])
 	//refractive = true;
 	//refract_coefficient = 0.99;
 	n = 1.05;
-	color_feature.Kdg = 0.3;
-	color_feature.Ksg = 0.65;
-	color_feature.Kag = 0.05;
-	color_feature.Kdr = 0.3;
-	color_feature.Ksr = 0.65;
-	color_feature.Kar = 0.05;
 	extreme_x1 = NOT_LEGAL, extreme_x2 = NOT_LEGAL;
 	extreme_z1 = NOT_LEGAL, extreme_z2 = NOT_LEGAL;
 	for (int i = 0; i < 4; i++)
@@ -372,7 +366,7 @@ Color BeizerBSPTree::get_color_normalvec(vector3<double> target_pos, vector3<dou
 	{
 		in = in * -1;
 	}
-	return PhongModel::reflect_color(light, in, view_direction, color_feature);
+	return PhongModel::reflect_color(light, in, view_direction, feature);
 }
 
 vector3<double> BeizerBSPTree::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)

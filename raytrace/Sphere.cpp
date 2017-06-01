@@ -9,17 +9,12 @@ void Sphere::init()
 Sphere::Sphere()
 {
 	init();
-	refractive = true;
 	refract_coefficient = 0.8;
 }
 Sphere::Sphere(vector3<double> input_center, double input_radius): sphere_center(input_center), radius(input_radius)
 {
 	init();
 	square_radius = radius * radius;
-	refractive = true;
-	color_feature.Kab = 0.4;
-	color_feature.Kdb = 0.3;
-	color_feature.Ksb = 0.3;
 	refract_coefficient = 0.7;
 	reflect_coefficient = 0.99;
 	n = 1.5;
@@ -88,7 +83,7 @@ Color Sphere::get_color_normalvec(vector3<double> target_pos, vector3<double> vi
 	light.direction = (target_pos - light.start_point).normallize();
 	vector3<double> normal_vector = (target_pos - sphere_center).normallize();
 	in = normal_vector;
-	return PhongModel::reflect_color(light, normal_vector, view_direction, color_feature);
+	return PhongModel::reflect_color(light, normal_vector, view_direction, feature);
 }
 
 vector3<double> Sphere::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)

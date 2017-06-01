@@ -5,8 +5,8 @@ struct object_feature          //存储对于光子来说物体的特性
 	double diffuse_reflect = 0;
 	double refract = 0;
 	double absorb = 0;
-	bool reflect_red = true, reflect_green = true, reflect_blue = true;
-	bool refract_red = true, refract_green = true, refract_blue = true;
+	double reflect_red = 1, reflect_green = 1, reflect_blue = 1;
+	double refract_red = 1, refract_green = 1, refract_blue = 1;
 	double pd = 0, ps = 0;                      //phong模型中漫反射光和镜面反射光的反射率
 };
 class PhotonModel

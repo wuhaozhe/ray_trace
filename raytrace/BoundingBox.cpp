@@ -17,9 +17,6 @@ BoundingBox::BoundingBox() : min_point(0, 0, 0), max_point(50, 50, 50)
 BoundingBox::BoundingBox(vector3<double> in_min_point, vector3<double> in_max_point) : min_point(in_min_point), max_point(in_max_point)
 {
 	init();
-	color_feature.Kdr = 0.3;
-	color_feature.Ksr = 0.65;
-	color_feature.Kar = 0.05;
 }
 BoundingBox::~BoundingBox()
 {
@@ -125,7 +122,7 @@ Color BoundingBox::get_color_normalvec(vector3<double> target_pos, vector3<doubl
 {
 	light.direction = (target_pos - light.start_point).normallize();
 	in = get_normalvec(target_pos, view_direction);
-	return PhongModel::reflect_color(light, in, view_direction, color_feature);
+	return PhongModel::reflect_color(light, in, view_direction, feature);
 }
 
 vector3<double> BoundingBox::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)
