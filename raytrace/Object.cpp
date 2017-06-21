@@ -8,6 +8,10 @@ Object::Object()
 	refract_coefficient = 0;
 }
 
+object_feature Object::get_feature(vector3<double> target_pos)
+{
+	return feature;
+}
 
 Object::~Object()
 {

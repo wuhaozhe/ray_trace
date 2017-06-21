@@ -1,5 +1,4 @@
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\vc140.pdb
-e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\sphere.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\ray.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\point.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\plane.obj
@@ -7,6 +6,7 @@ e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\photon_m
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\photonmodel.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\phongmodel.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\object.obj
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\myrand.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\main.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\lodepng.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\kdtree.obj
@@ -21,6 +21,7 @@ e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\beizer_l
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\beizerbsptree.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\world.obj
 e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\triangle.obj
+e:\大二下\图形学\第一次大作业\raytrace\raytrace\x64\release\sphere.obj
 e:\大二下\图形学\第一次大作业\raytrace\x64\release\raytrace.exe
 e:\大二下\图形学\第一次大作业\raytrace\x64\release\raytrace.ipdb
 e:\大二下\图形学\第一次大作业\raytrace\x64\release\raytrace.iobj

@@ -7,7 +7,7 @@ World::World() : light()
 	//light(vector3<double>(-25, 1, 50), vector3<double>(0, 1, 50), vector3<double>(0, 0, -1), 10, 0.9)
 	//light(vector3<double>(-25, 1, 50), vector3<double>(0.5, 0, 0), vector3<double>(0, 0.5, 0), vector3<double>(0, 0, -1), 5, 5, 0.9)
 	//light(vector3<double>(-25, 1, 50), vector3<double>(0, 1, 50), vector3<double>(0, 0, -1), 10, 0.9)
-	camera = Camera(vector3<double>(-5, 0, 0), vector3<double>(1, 0, 0), vector3<double>(0, 0, 1));
+	camera = Camera(vector3<double>(-8, 0, -5), vector3<double>(1, 0, 0), vector3<double>(0, 0, 1));
 	drawer_instance = drawer::get_instance();
 	drawer_instance->set_size(camera.size_x, camera.size_y);
 }
@@ -125,11 +125,13 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 		Color return_color;
 		vector3<double> normal_vector;
 		normal_vector = objects[object_index]->get_normalvec(_intersect_point, current_ray.direction);
+		vector3<double> reflect_feature(objects[object_index]->feature.reflect_red, objects[object_index]->feature.reflect_green, objects[object_index]->feature.reflect_blue);
+		vector3<double> refract_feature(objects[object_index]->feature.refract_red, objects[object_index]->feature.refract_green, objects[object_index]->feature.refract_blue);
 		if (objects[object_index]->feature.specular_reflect > limit_zero)
 		{
 			vector3<double> reflect_direction = reflect(current_ray.direction, normal_vector);
 			Ray reflect_ray(_intersect_point, reflect_direction);
-			return_color = return_color + intersect_color(n + 1, reflect_ray, refract_stack) * objects[object_index]->feature.specular_reflect;
+			return_color = return_color + intersect_color(n + 1, reflect_ray, refract_stack) * objects[object_index]->feature.specular_reflect * reflect_feature;
 		}
 		if (objects[object_index]->feature.refract > limit_zero)
 		{
@@ -152,7 +154,7 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 				if (refract(current_ray.direction, normal_vector, last_n, current_n, refract_direction))                    //能够折射
 				{
 					Ray refract_ray(_intersect_point, refract_direction);
-					return_color = return_color + intersect_color(n + 1, refract_ray, refract_stack) * objects[object_index]->feature.refract;
+					return_color = return_color + intersect_color(n + 1, refract_ray, refract_stack) * objects[object_index]->feature.refract * refract_feature;
 				}
 				else                                       //发生全反射
 				{
@@ -160,7 +162,7 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 					current_n = last_n;
 					vector3<double> reflect_direction = reflect(current_ray.direction, normal_vector);
 					Ray reflect_ray(_intersect_point, reflect_direction);
-					return_color = return_color + intersect_color(n + 1, reflect_ray, refract_stack) * objects[object_index]->feature.specular_reflect;
+					return_color = return_color + intersect_color(n + 1, reflect_ray, refract_stack) * objects[object_index]->feature.specular_reflect * reflect_feature;
 				}
 			}
 			else                                              //将要射入该物体
@@ -171,7 +173,7 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 				if (refract(current_ray.direction, normal_vector, last_n, current_n, refract_direction))                    //能够折射
 				{
 					Ray refract_ray(_intersect_point, refract_direction);
-					return_color = return_color + intersect_color(n + 1, refract_ray, refract_stack) * objects[object_index]->feature.refract;
+					return_color = return_color + intersect_color(n + 1, refract_ray, refract_stack) * objects[object_index]->feature.refract * refract_feature;
 				}
 				else                                       //发生全反射
 				{
@@ -179,7 +181,7 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 					current_n = last_n;
 					vector3<double> reflect_direction = reflect(current_ray.direction, normal_vector);
 					Ray reflect_ray(_intersect_point, reflect_direction);
-					return_color = return_color + intersect_color(n + 1, reflect_ray, refract_stack) * objects[object_index]->feature.specular_reflect;
+					return_color = return_color + intersect_color(n + 1, reflect_ray, refract_stack) * objects[object_index]->feature.specular_reflect * reflect_feature;
 				}
 			}
 		}
@@ -215,7 +217,7 @@ Color World::intersect_color(int n, Ray current_ray, stack<int> &refract_stack) 
 void World::photon_cast()
 {
 	(photon_map::get_instance())->init_photon_map(objects, light.each_light[0].start_point, Color(255, 255, 255, 255));
-	(photon_map::get_instance())->generate_photon(10000000);
+	(photon_map::get_instance())->generate_photon(20000000);
 }
 
 Color World::ray_trace(int i, int j)
@@ -226,9 +228,35 @@ Color World::ray_trace(int i, int j)
 	refract_stack.push(-1);
 	current_n = 1;
 	//cout << i << " " << j << endl;
-	Color a = intersect_color(0, current_ray, refract_stack);
 	//cout << (int)a.r << " " << (int)a.g << " " << (int)a.b << endl;
 	return intersect_color(0, current_ray, refract_stack);
+}
+
+Color World::ray_trace_withDOF(int i, int j)
+{
+	vector<Ray> current_ray_array = camera.generate_DOF_ray(i, j);
+	stack<int> refract_stack;
+	refract_stack.push(-1);
+	current_n = 1;
+	int r = 0, g = 0, b = 0;
+	for (int i = 0; i < current_ray_array.size(); i++)
+	{
+		//cout << current_ray_array[i].start_point << " " << current_ray_array[i].direction << endl;
+		Color temp_color = intersect_color(0, current_ray_array[i], refract_stack);
+		r += (int)temp_color.r;
+		g += (int)temp_color.g;
+		b += (int)temp_color.b;
+		while (!refract_stack.empty())
+		{
+			refract_stack.pop();
+		}
+		refract_stack.push(-1);
+		current_n = 1;
+	}
+	r /= current_ray_array.size();
+	g /= current_ray_array.size();
+	b /= current_ray_array.size();
+	return Color(r, g, b, 255);
 }
 
 void World::ray_trace()
@@ -236,7 +264,7 @@ void World::ray_trace()
 	cout << camera.size_x << " " << camera.size_y << endl;
 	for (int i = 0; i < camera.size_x; i++)
 	{
-		cout << i << endl;
+		cout <<"line "<< i << endl;
 		for (int j = 0; j < camera.size_y; j++)
 		{
 			Color temp_color = ray_trace(i - (camera.size_x / 2), j - (camera.size_y / 2));
@@ -245,3 +273,4 @@ void World::ray_trace()
 		}
 	}
 }
+

@@ -68,11 +68,36 @@ double Plane::signed_distance(Ray input_ray)
 	}
 }
 
+object_feature Plane::get_feature(vector3<double> target_pos)
+{
+	if (has_texture)
+	{
+		//返回纹理对应的颜色
+		vector3<double> relative = target_pos - min_point;           //到最小点的相对位置
+		double temp_u_length = relative * u_direction;
+		double temp_v_length = relative * v_direction;
+		double u = temp_u_length / u_length;
+		double v = temp_v_length / v_length;
+		int u_point = (double)texture.width * u;
+		int v_point = (double)texture.height * (1 - v) - 1;
+		Color temp_color = texture.color_image[v_point * texture.width + u_point];
+		object_feature temp_feature(feature);
+		temp_feature.reflect_blue = (double)temp_color.b / 255.0;
+		temp_feature.reflect_green = (double)temp_color.g / 255.0;
+		temp_feature.reflect_red = (double)temp_color.r / 255.0;
+		return temp_feature;
+	}
+	else
+	{
+		return feature;
+	}
+}
+
 Color Plane::get_color_normalvec(vector3<double> target_pos, vector3<double> view_direction, Single_Light light, vector3<double> &in)
 {
 	light.direction = (target_pos - light.start_point).normallize();
 	in = normal_vector.normallize();
-	return PhongModel::reflect_color(light, normal_vector, view_direction, feature);
+	return PhongModel::reflect_color(light, normal_vector, view_direction, get_feature(target_pos));
 }
 
 vector3<double> Plane::get_normalvec(vector3<double> target_pos, vector3<double> view_direction)

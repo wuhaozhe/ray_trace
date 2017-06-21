@@ -6,6 +6,11 @@
 #include <map>
 using namespace std;
 
+class ReadObj
+{
+
+};
+
 class Beizer_Surface_Object :public Object
 {
 private:

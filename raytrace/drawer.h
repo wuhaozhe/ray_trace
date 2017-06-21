@@ -1,8 +1,10 @@
 #ifndef DRAWER_H
 #define DRAWER_H
 #include <iostream>
-#include <algorithm>
+#include <vector>
+#include <string>
 #include "lodepng.h"
+#include "Point.h"
 using namespace std;
 struct Color         //Pixel的组成r, g, b, a
 {
@@ -22,18 +24,27 @@ struct Color         //Pixel的组成r, g, b, a
 	Color operator*(const double &a)
 	{
 		Color temp;
-		temp.r = (unsigned char)(min(a * (double)r, 255.0));
-		temp.g = (unsigned char)(min(a * (double)g, 255.0));
-		temp.b = (unsigned char)(min(a * (double)b, 255.0));
+		temp.r = (unsigned char)(a * (double)r);
+		temp.g = (unsigned char)(a * (double)g);
+		temp.b = (unsigned char)(a * (double)b);
+		temp.a = 255;
+		return temp;
+	}
+	Color operator*(const vector3<double> &a)
+	{
+		Color temp;
+		temp.r = (unsigned char)(a.x * (double)r);
+		temp.g = (unsigned char)(a.y * (double)g);
+		temp.b = (unsigned char)(a.z * (double)b);
 		temp.a = 255;
 		return temp;
 	}
 	Color operator+(const Color &a)
 	{
 		Color temp;
-		temp.r = (unsigned char)min((short)a.r + (short)r, 255);
-		temp.g = (unsigned char)min((short)a.g + (short)g, 255);
-		temp.b = (unsigned char)min((short)a.b + (short)b, 255);
+		temp.r = a.r + r;
+		temp.g = a.g + g;
+		temp.b = a.b + b;
 		temp.a = 255;
 		return temp;
 	}
@@ -69,6 +80,15 @@ private:
 	unsigned width;
 	unsigned height;
 	static drawer* instance;
+};
+
+class reader
+{
+	vector<unsigned char> image;             //char* 格式的image
+public:
+	bool read_file(const char* filepath, unsigned input_width, unsigned input_height);           //读取图片
+	unsigned width, height;                        //图片的高度和宽度
+	vector<Color> color_image;
 };
 
 #endif

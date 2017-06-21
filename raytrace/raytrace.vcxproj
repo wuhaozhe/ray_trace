@@ -154,6 +154,7 @@
     <ClCompile Include="kdTree.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyRand.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PhongModel.cpp" />
     <ClCompile Include="PhotonModel.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="drawer.h" />
     <ClInclude Include="kdTree.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="MyRand.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Object_Collections.h" />
     <ClInclude Include="PhongModel.h" />

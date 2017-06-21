@@ -18,8 +18,9 @@ private:
 public:
 	vector<Object*> objects;
 	Color ray_trace(int i, int j);
+	Color ray_trace_withDOF(int i, int j);
 	const int recursive_depth = 5;                          //光线追踪的递归深度
-	const double photon_weight = 0.7;                       //为了降低高频噪声，当光源可以直接照射到一个点时，光子图的颜色与phong模型的颜色的比值
+	const double photon_weight = 0.99;                       //为了降低高频噪声，当光源可以直接照射到一个点时，光子图的颜色与phong模型的颜色的比值
 	Light light;
 	Camera camera;
 	void add_object(Object* input_obj);

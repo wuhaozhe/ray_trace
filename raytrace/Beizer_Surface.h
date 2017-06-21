@@ -8,7 +8,7 @@ class Beizer_Surface
 	vector3<double> **controlled_points;
 	int line, row;
 public:
-	double du = 0.011f, dv = 0.011f;
+	double du = 0.01f, dv = 0.01f;
 	Beizer_Surface(int input_line, int input_row);           //指定biezer_surface几行几列
 	void set_control_point(int x, int y, vector3<double> input);        //设置第x行第y列
 	vector3<double> get_point(double u, double v);                   //获得参数为u, v的曲面上的点

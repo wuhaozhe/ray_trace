@@ -85,7 +85,7 @@ private:
 	void nearest(kd_node* current, double* target, k_collection& collection);
 	double distance(double* a, double* b);
 public:
-	const int k_size = 500;            //KNN算法中k的取值
+	const int k_size = 2000;            //KNN算法中k的取值
 	kdTree(vector<photon> photon_array);
 	k_collection knn(vector3<double> target);         //寻找k个近邻
 	~kdTree();

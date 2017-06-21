@@ -30,7 +30,7 @@ bool Sphere::intersect(Ray input_ray, vector3<double> &intersect_point)         
 	double direction_radius_dot = l * input_ray.direction;
 	if (l.length > radius && fabs(l.length - radius) >= limit_zero)           //光源位于球体外部
 	{
-		if (direction_radius_dot > 0)
+		if (direction_radius_dot > limit_zero)
 		{
 			double square_distance = l.length * l.length - direction_radius_dot * direction_radius_dot;
 			if (square_distance > square_radius || fabs(square_distance - square_radius) < limit_zero)                //相切或相离均认为不相交
@@ -53,7 +53,7 @@ bool Sphere::intersect(Ray input_ray, vector3<double> &intersect_point)         
 	}
 	else if(fabs(l.length - radius) < limit_zero)               //光源在球面上（需要进行判断，如果光线的前进方向与圆心距离变近，那么求交，如果前进方向与圆心距离变远，那么不想交）
 	{                                                           //可以根据光线的方向与到圆心的点积判断(锐角，则靠近，钝角，则远离)
-		if(direction_radius_dot > 0)          //光线与球心的距离变近
+		if(direction_radius_dot > limit_zero)          //光线与球心的距离变近
 		{
 			double square_distance = l.length * l.length - direction_radius_dot * direction_radius_dot;
 			double square_t1 = square_radius - square_distance;

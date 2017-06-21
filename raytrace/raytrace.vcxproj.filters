@@ -99,6 +99,9 @@
     <ClCompile Include="kdTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MyRand.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drawer.h">
@@ -171,6 +174,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="photon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyRand.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

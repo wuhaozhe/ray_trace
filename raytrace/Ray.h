@@ -37,7 +37,7 @@ public:
 	Light()             //默认为点光源
 	{
 		intensity = 0.9;
-		Single_Light single_light(vector3<double>(3, 0, -6), vector3<double>(0, 0, -1), 1, Color(255, 255, 255, 255));
+		Single_Light single_light(vector3<double>(5, 0, 9), vector3<double>(0, 0, -1), 1, Color(255, 255, 255, 255));
 		each_light.push_back(single_light);
 	}
 	Light(vector3<double> light_point, vector3<double> direction, double input_intensity)           //光源实例化为点光源

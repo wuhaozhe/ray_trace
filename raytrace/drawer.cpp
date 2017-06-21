@@ -1,6 +1,5 @@
 #include "drawer.h"
 #include <assert.h>
-#include <algorithm>
 drawer* drawer::instance = new drawer();      //对静态成员实例化
 drawer::drawer()
 {
@@ -15,10 +14,10 @@ void drawer::set_pixel(unsigned x, unsigned y, Color color)
 {
 	assert(x < width && y < height);
 	y = height - 1 - y;               //将坐标轴上下颠倒
-	image[4 * width * y + 4 * x + 0] = std::min(color.r, (unsigned char)255);
-	image[4 * width * y + 4 * x + 1] = std::min(color.g, (unsigned char)255);
-	image[4 * width * y + 4 * x + 2] = std::min(color.b, (unsigned char)255);
-	image[4 * width * y + 4 * x + 3] = std::min(color.a, (unsigned char)255);
+	image[4 * width * y + 4 * x + 0] = color.r;
+	image[4 * width * y + 4 * x + 1] = color.g;
+	image[4 * width * y + 4 * x + 2] = color.b;
+	image[4 * width * y + 4 * x + 3] = color.a;
 }
 void drawer::set_pixel(Point point, Color color)
 {
@@ -77,4 +76,30 @@ Color Color::mix_back(Color background_color)
 	mixed_color.b = (unsigned char)(ratio * (double)b + (1 - ratio) * (double)background_color.b);            //根据灰度来算合成的g
 	mixed_color.a = 255;
 	return mixed_color;
+}
+
+bool reader::read_file(const char* filepath, unsigned input_width, unsigned input_height)
+{
+	unsigned error;
+	error = lodepng::decode(image, width, height, filepath);
+	if (error)
+	{
+		return false;
+	}
+	else
+	{
+		width = input_width;
+		height = input_height;
+		for (int i = 0; i < height; i++)             //construct color image
+			for (int j = 0; j < width; j++)
+			{
+				Color temp_color;
+				temp_color.r = image[4 * width * i + 4 * j + 0];
+				temp_color.g = image[4 * width * i + 4 * j + 1];
+				temp_color.b = image[4 * width * i + 4 * j + 2];
+				temp_color.a = image[4 * width * i + 4 * j + 3];
+				color_image.push_back(temp_color);
+			}
+		return true;
+	}
 }

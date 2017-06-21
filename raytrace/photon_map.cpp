@@ -2,12 +2,14 @@
 #include "photon_map.h"
 #include "PhongModel.h"
 #include <cmath>
+#include <algorithm>
+#include "MyRand.h"
 photon_map* photon_map::instance = new photon_map();
 
 
 photon_map::photon_map()
 {
-	srand((unsigned)time(NULL));
+	//srand((unsigned)time(NULL));
 }
 
 
@@ -26,8 +28,8 @@ photon photon_map::init_photon()
 	{
 		//to do:矩形区域的光源 
 	}
-	double theta = (rand() / (double)(RAND_MAX)) * 2 * PI;
-	double phi = (rand() / (double)(RAND_MAX)) * 2 * PI;
+	double theta = (MyRand::get_randrom()) * 2 * PI;
+	double phi = (MyRand::get_randrom()) * 2 * PI;
 	double z = cos(theta);
 	double y = sin(theta) * sin(phi);
 	double x = sin(theta) * cos(phi);
@@ -63,8 +65,8 @@ void photon_map::generate_photon()
 		if (intersect_point(start_photon.photon_ray, temp_index, temp_point))
 		{   //根据轮盘赌的原则决定接下来是折射，漫反射，镜面反射还是吸收
 			vector3<double> temp_normalvec = objects[temp_index]->get_normalvec(temp_point, start_photon.photon_ray.direction);
-			double roulette = rand() / (double)(RAND_MAX);
-			object_feature temp_feature = objects[temp_index]->feature;
+			double roulette = (MyRand::get_randrom());
+			object_feature temp_feature = objects[temp_index]->get_feature(temp_point);
 			roulette -= temp_feature.absorb;
 			if (roulette < 0)            //光子被吸收
 			{
@@ -88,9 +90,9 @@ void photon_map::generate_photon()
 				{
 					temp_normalvec = temp_normalvec * -1;
 				}
-				double cos_theta = (rand() / (double)(RAND_MAX));
+				double cos_theta = (MyRand::get_randrom());
 				double theta = acos(cos_theta);
-				double phi = (rand() / (double)(RAND_MAX)) * 2 * PI;
+				double phi = (MyRand::get_randrom()) * 2 * PI;
 				double z = cos_theta, x = sin(theta) * cos(phi), y = sin(theta) * sin(phi);
 				vector3<double> reflect_direction = (temp_normalvec * z + base1 * x + base2 * y).normallize();
 				start_photon.photon_ray.start_point = temp_point;
